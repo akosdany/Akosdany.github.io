@@ -4,50 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>AkosDanyBio</title>
+    
+    <!-- Подключаем шрифт Hamilton -->
     <link href="https://fonts.cdnfonts.com/css/hamilton" rel="stylesheet">
+    
+    <!-- Apple PWA метатеги -->
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔗</text></svg>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AkosDanyBio">
     <meta name="theme-color" content="#000000">
+    <meta name="format-detection" content="telephone=no">
     
     <style>
-        /* ========= CSS RESET & VARIABLES ========= */
+        /* ========= iOS 26 DESIGN SYSTEM ========= */
         :root {
-            /* Монохромная палитра */
-            --black: #000000;
-            --white: #FFFFFF;
-            --gray-50: #0A0A0A;
-            --gray-100: #111111;
-            --gray-200: #1A1A1A;
-            --gray-300: #2D2D2D;
-            --gray-400: #404040;
-            --gray-500: #5C5C5C;
-            --gray-600: #8A8A8A;
-            --gray-700: #B3B3B3;
-            --gray-800: #D1D1D1;
-            --gray-900: #E8E8E8;
+            /* iOS 26 Glassmorphism Colors */
+            --ios-background: #000000;
+            --ios-surface: rgba(28, 28, 30, 0.92);
+            --ios-surface-light: rgba(242, 242, 247, 0.92);
+            --ios-border: rgba(255, 255, 255, 0.12);
+            --ios-border-light: rgba(0, 0, 0, 0.12);
+            --ios-highlight: rgba(255, 255, 255, 0.06);
+            --ios-highlight-light: rgba(0, 0, 0, 0.06);
             
-            /* Полупрозрачные цвета для glassmorphism */
-            --glass-dark: rgba(15, 15, 15, 0.85);
-            --glass-light: rgba(255, 255, 255, 0.85);
-            --glass-border-dark: rgba(255, 255, 255, 0.12);
-            --glass-border-light: rgba(0, 0, 0, 0.08);
-            --glass-highlight: rgba(255, 255, 255, 0.1);
-            --glass-shadow: rgba(0, 0, 0, 0.2);
+            /* iOS Elevation System */
+            --elevation-1: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+            --elevation-2: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);
+            --elevation-3: 0px 10px 20px rgba(0, 0, 0, 0.19), 0px 6px 6px rgba(0, 0, 0, 0.23);
+            --elevation-4: 0px 14px 28px rgba(0, 0, 0, 0.25), 0px 10px 10px rgba(0, 0, 0, 0.22);
             
-            /* Эффекты */
-            --blur-amount: 30px;
-            --shadow-intensity: 0.3;
+            /* iOS Spring Animations */
+            --spring-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --spring-smooth: cubic-bezier(0.2, 0, 0, 1);
+            --spring-gentle: cubic-bezier(0.4, 0, 0.2, 1);
+            --spring-elegant: cubic-bezier(0.33, 0, 0.07, 1);
             
-            /* Анимации */
-            --transition-smooth: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            --transition-quick: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Типографика */
-            --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
-            --font-signature: 'Hamilton', 'Hamilton Signature Cyrillic', cursive;
+            /* iOS Blur System */
+            --blur-heavy: 45px;
+            --blur-medium: 30px;
+            --blur-light: 15px;
         }
         
+        /* ========= iOS SYSTEM RESET ========= */
         * {
             margin: 0;
             padding: 0;
@@ -56,144 +55,85 @@
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         html, body {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            font-family: var(--font-system);
-            background: var(--black);
-            color: var(--white);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overscroll-behavior: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            background: var(--ios-background);
+            color: #FFFFFF;
             position: fixed;
+            overscroll-behavior: none;
+            -webkit-overflow-scrolling: touch;
         }
         
-        /* ========= DYNAMIC GLASS BACKGROUND ========= */
-        .background-container {
+        /* ========= iOS DYNAMIC BACKGROUND ========= */
+        .ios-background {
             position: absolute;
             width: 100%;
             height: 100%;
-            z-index: -3;
-            overflow: hidden;
+            z-index: -100;
             background: 
-                radial-gradient(circle at 20% 30%, var(--gray-100) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, var(--gray-200) 0%, transparent 50%),
-                var(--black);
-            animation: gradientShift 20s ease-in-out infinite;
+                radial-gradient(circle at 20% 30%, 
+                    rgba(40, 40, 40, 0.4) 0%, 
+                    transparent 60%),
+                radial-gradient(circle at 80% 70%, 
+                    rgba(60, 60, 60, 0.3) 0%, 
+                    transparent 60%),
+                var(--ios-background);
+            animation: iosBackgroundShift 30s ease-in-out infinite;
         }
         
-        @keyframes gradientShift {
+        @keyframes iosBackgroundShift {
             0%, 100% { background-position: 0% 0%; }
-            25% { background-position: 100% 50%; }
-            50% { background-position: 50% 100%; }
-            75% { background-position: 0% 100%; }
+            33% { background-position: 100% 50%; }
+            66% { background-position: 50% 100%; }
         }
         
-        /* ========= GLASS LAYERS & REFLECTIONS ========= */
-        .glass-layers {
+        /* ========= iOS GLASS OVERLAY ========= */
+        .ios-glass-overlay {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2;
+            z-index: -90;
+            backdrop-filter: blur(var(--blur-heavy)) saturate(200%);
+            -webkit-backdrop-filter: blur(var(--blur-heavy)) saturate(200%);
+            mask-image: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 0, 0, 0.3) 10%,
+                rgba(0, 0, 0, 0.6) 30%,
+                rgba(0, 0, 0, 0.8) 50%,
+                rgba(0, 0, 0, 0.6) 70%,
+                rgba(0, 0, 0, 0.3) 90%,
+                transparent 100%
+            );
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 0, 0, 0.3) 10%,
+                rgba(0, 0, 0, 0.6) 30%,
+                rgba(0, 0, 0, 0.8) 50%,
+                rgba(0, 0, 0, 0.6) 70%,
+                rgba(0, 0, 0, 0.3) 90%,
+                transparent 100%
+            );
+            animation: glassPulse 20s ease-in-out infinite;
         }
         
-        .glass-layer {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--glass-highlight) 0%, transparent 70%);
-            opacity: 0.05;
-            animation: floatLayer 25s infinite linear;
+        @keyframes glassPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.9; }
         }
         
-        .glass-layer:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            top: 10%;
-            left: 10%;
-            animation-duration: 30s;
-            animation-delay: 0s;
-        }
-        
-        .glass-layer:nth-child(2) {
-            width: 400px;
-            height: 400px;
-            top: 60%;
-            left: 70%;
-            animation-duration: 35s;
-            animation-delay: 5s;
-        }
-        
-        .glass-layer:nth-child(3) {
-            width: 250px;
-            height: 250px;
-            top: 30%;
-            left: 80%;
-            animation-duration: 28s;
-            animation-delay: 10s;
-        }
-        
-        @keyframes floatLayer {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-                opacity: 0.05;
-            }
-            25% {
-                transform: translate(30px, 20px) rotate(90deg);
-                opacity: 0.08;
-            }
-            50% {
-                transform: translate(0, 40px) rotate(180deg);
-                opacity: 0.05;
-            }
-            75% {
-                transform: translate(-30px, 20px) rotate(270deg);
-                opacity: 0.08;
-            }
-            100% {
-                transform: translate(0, 0) rotate(360deg);
-                opacity: 0.05;
-            }
-        }
-        
-        /* ========= FLOATING PARTICLES ========= */
-        .particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        
-        .particle {
-            position: absolute;
-            background: var(--white);
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleFloat 20s infinite linear;
-            filter: blur(1px);
-        }
-        
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.1;
-            }
-            90% {
-                opacity: 0.05;
-            }
-            100% {
-                transform: translateY(-100px) scale(1);
-                opacity: 0;
-            }
-        }
-        
-        /* ========= MAIN GLASS CARD ========= */
-        .main-container {
+        /* ========= iOS CONTENT CONTAINER ========= */
+        .ios-container {
             width: 100%;
             height: 100%;
             display: flex;
@@ -201,51 +141,88 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            position: relative;
+            animation: iosAppear 0.8s var(--spring-smooth) forwards;
+            opacity: 0;
         }
         
-        .glass-card {
+        @keyframes iosAppear {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* ========= iOS GLASS CARD (iOS 26 STYLE) ========= */
+        .ios-glass-card {
             position: relative;
             width: 100%;
-            max-width: 420px;
-            backdrop-filter: blur(var(--blur-amount)) saturate(180%);
-            -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(180%);
-            background: var(--glass-dark);
-            border: 1px solid var(--glass-border-dark);
-            border-radius: 32px;
-            padding: 48px 36px;
+            max-width: 380px;
+            backdrop-filter: blur(var(--blur-medium)) saturate(180%);
+            -webkit-backdrop-filter: blur(var(--blur-medium)) saturate(180%);
+            background: var(--ios-surface);
+            border: 1px solid var(--ios-border);
+            border-radius: 24px;
+            padding: 32px;
             box-shadow: 
-                0 25px 100px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 0 0 1px rgba(255, 255, 255, 0.05);
+                var(--elevation-3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.03);
             animation: 
-                cardAppear 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards,
-                cardFloat 8s ease-in-out infinite 1.2s;
+                cardSpringIn 1s var(--spring-bounce) forwards,
+                cardFloat 15s var(--spring-gentle) infinite 1s;
             opacity: 0;
-            transform: translateY(30px) scale(0.98);
+            transform: translateY(40px) scale(0.95);
             overflow: hidden;
         }
         
-        .glass-card::before {
+        /* iOS Card Glass Texture */
+        .ios-glass-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.02) 0%, 
+                    transparent 30%, 
+                    rgba(0, 0, 0, 0.02) 70%),
+                radial-gradient(circle at 30% 20%, 
+                    rgba(255, 255, 255, 0.03) 0%, 
+                    transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* iOS Card Shine Effect */
+        .ios-glass-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
             background: linear-gradient(
-                90deg,
-                transparent,
-                var(--glass-highlight),
-                transparent
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.03) 50%,
+                transparent 70%
             );
-            transition: left 0.8s ease;
+            animation: iosShine 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 2;
         }
         
-        .glass-card:hover::before {
-            left: 100%;
-        }
-        
-        @keyframes cardAppear {
+        @keyframes cardSpringIn {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            60% {
+                opacity: 0.9;
+                transform: translateY(-5px) scale(1.02);
+            }
             100% {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -254,492 +231,593 @@
         
         @keyframes cardFloat {
             0%, 100% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(0) rotateX(0) rotateY(0);
             }
             25% {
-                transform: translateY(-5px) rotate(0.3deg);
+                transform: translateY(-2px) rotateX(0.1deg) rotateY(0.05deg);
             }
             50% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(1px) rotateX(-0.05deg) rotateY(0.1deg);
             }
             75% {
-                transform: translateY(-3px) rotate(-0.2deg);
+                transform: translateY(-1px) rotateX(0.05deg) rotateY(-0.05deg);
             }
         }
         
-        /* ========= AVATAR PLACEHOLDER ========= */
-        .avatar-container {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 40px;
-            position: relative;
-            animation: avatarGlow 4s ease-in-out infinite;
+        @keyframes iosShine {
+            0%, 100% {
+                transform: rotate(45deg) translateX(-150%);
+            }
+            50% {
+                transform: rotate(45deg) translateX(150%);
+            }
         }
         
-        .avatar-frame {
+        /* ========= iOS AVATAR ========= */
+        .ios-avatar-container {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 32px;
+            position: relative;
+        }
+        
+        .ios-avatar-frame {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--gray-200), var(--gray-400));
-            border: 3px solid rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.05) 50%, 
+                rgba(0, 0, 0, 0.1) 100%);
+            border: 1px solid var(--ios-border);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
             box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                var(--elevation-1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            animation: avatarGlow 6s var(--spring-gentle) infinite;
         }
         
-        .avatar-frame::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                transparent 30%,
-                rgba(255, 255, 255, 0.03) 50%,
-                transparent 70%
-            );
-            transform: rotate(45deg);
-            animation: shine 3s ease-in-out infinite;
-        }
-        
-        .avatar-initials {
-            font-size: 48px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.9);
-            letter-spacing: 1px;
+        .ios-avatar-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
         
         @keyframes avatarGlow {
             0%, 100% {
-                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.05));
+                box-shadow: 
+                    var(--elevation-1),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+                    0 0 20px rgba(255, 255, 255, 0.03);
             }
             50% {
-                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.1));
+                box-shadow: 
+                    var(--elevation-2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                    0 0 30px rgba(255, 255, 255, 0.05);
             }
         }
         
-        @keyframes shine {
-            0%, 100% {
-                transform: rotate(45deg) translateX(-100%);
-            }
-            50% {
-                transform: rotate(45deg) translateX(100%);
-            }
-        }
-        
-        /* ========= TELEGRAM BLOCK ========= */
-        .telegram-block {
-            margin-bottom: 24px;
+        /* ========= iOS BUTTON GROUPS ========= */
+        .ios-button-group {
+            margin-bottom: 20px;
             position: relative;
         }
         
-        .telegram-block::before {
-            content: 'Telegram';
+        .ios-group-label {
             position: absolute;
-            top: -28px;
+            top: -24px;
             left: 0;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--gray-600);
-            letter-spacing: 2px;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.5px;
             text-transform: uppercase;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 12px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         
-        .telegram-buttons {
+        .ios-button-stack {
             display: flex;
             flex-direction: column;
-            gap: 1px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 18px;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid var(--ios-border);
+            backdrop-filter: blur(var(--blur-light));
+            -webkit-backdrop-filter: blur(var(--blur-light));
             overflow: hidden;
-            border: 1px solid var(--glass-border-dark);
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
         
-        /* ========= BUTTON STYLES ========= */
-        .glass-button {
+        /* ========= iOS SYSTEM BUTTONS ========= */
+        .ios-button {
             position: relative;
             display: flex;
             align-items: center;
-            padding: 22px 24px;
-            background: rgba(255, 255, 255, 0.03);
+            padding: 16px 20px;
+            background: transparent;
             border: none;
-            color: var(--white);
-            font-size: 18px;
+            color: #FFFFFF;
+            font-size: 17px;
             font-weight: 500;
             text-decoration: none;
-            transition: var(--transition-quick);
-            overflow: hidden;
+            transition: all 0.3s var(--spring-smooth);
             cursor: pointer;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+            user-select: none;
         }
         
-        .telegram-buttons .glass-button {
-            border-bottom: 1px solid var(--glass-border-dark);
+        .ios-button-stack .ios-button {
+            border-bottom: 0.5px solid var(--ios-border);
         }
         
-        .telegram-buttons .glass-button:last-child {
+        .ios-button-stack .ios-button:last-child {
             border-bottom: none;
         }
         
-        .glass-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                var(--glass-highlight),
-                transparent
-            );
-            transition: left 0.6s ease;
+        /* iOS Button Press Effect */
+        .ios-button:active {
+            background: var(--ios-highlight);
+            transform: scale(0.98);
+            transition: all 0.1s var(--spring-smooth);
         }
         
-        .glass-button:hover::before {
-            left: 100%;
+        /* iOS Button Hover (for devices with mouse) */
+        @media (hover: hover) {
+            .ios-button:hover {
+                background: var(--ios-highlight);
+            }
         }
         
-        .glass-button:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-1px);
-        }
-        
-        .glass-button:active {
-            transform: translateY(0);
-            transition: all 0.1s;
-        }
-        
-        .button-icon {
-            width: 28px;
-            height: 28px;
-            margin-right: 16px;
+        /* iOS Button Icon */
+        .ios-button-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.08) 0%, 
+                rgba(255, 255, 255, 0.12) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
-            opacity: 0.9;
-            transition: var(--transition-quick);
+            margin-right: 16px;
+            transition: all 0.3s var(--spring-smooth);
+            flex-shrink: 0;
         }
         
-        .glass-button:hover .button-icon {
-            opacity: 1;
-            transform: scale(1.1);
+        .ios-button:active .ios-button-icon {
+            transform: scale(0.95);
         }
         
-        .button-text {
-            flex: 1;
-            letter-spacing: 0.3px;
-        }
-        
-        .button-arrow {
-            opacity: 0.5;
+        .ios-button-icon span {
             font-size: 18px;
-            transition: var(--transition-quick);
+            color: rgba(255, 255, 255, 0.9);
         }
         
-        .glass-button:hover .button-arrow {
-            opacity: 0.8;
-            transform: translateX(4px);
+        /* iOS Button Text */
+        .ios-button-text {
+            flex: 1;
+            text-align: left;
         }
         
-        /* ========= INSTAGRAM BUTTON ========= */
-        .instagram-button {
-            margin-top: 8px;
-            border-radius: 18px;
-            border: 1px solid var(--glass-border-dark);
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        .ios-button-title {
+            font-size: 17px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2px;
+            letter-spacing: -0.2px;
         }
         
-        /* ========= HANDWRITING SIGNATURE ========= */
-        .signature-container {
+        .ios-button-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+        }
+        
+        /* iOS Button Chevron */
+        .ios-button-chevron {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 16px;
+            transition: all 0.3s var(--spring-smooth);
+            margin-left: 8px;
+        }
+        
+        .ios-button:active .ios-button-chevron {
+            color: rgba(255, 255, 255, 0.8);
+            transform: translateX(2px);
+        }
+        
+        /* ========= iOS SINGLE BUTTON ========= */
+        .ios-single-button {
+            border-radius: 16px;
+            border: 1px solid var(--ios-border);
+            backdrop-filter: blur(var(--blur-light));
+            -webkit-backdrop-filter: blur(var(--blur-light));
+            margin-top: 12px;
+        }
+        
+        /* ========= ЭЛЕГАНТНАЯ ПОДПИСЬ ========= */
+        .ios-signature-container {
             position: absolute;
             bottom: 40px;
             width: 100%;
             display: flex;
             justify-content: center;
-            animation: signatureAppear 2s ease-out 1.5s forwards;
+            animation: signatureSpringIn 1.2s var(--spring-elegant) 0.5s forwards;
             opacity: 0;
+            transform: translateY(20px);
         }
         
-        .signature {
-            font-family: var(--font-signature);
-            font-size: 42px;
+        .ios-signature {
+            font-family: 'Hamilton', 'Hamilton Signature Cyrillic', 'Parisienne', cursive;
+            font-size: 38px;
             font-weight: normal;
-            color: var(--white);
-            text-shadow: 
-                0 2px 10px rgba(0, 0, 0, 0.3),
-                0 0 30px rgba(255, 255, 255, 0.1);
-            animation: 
-                breathing 4s ease-in-out infinite,
-                inkFlow 8s ease-in-out infinite;
-            letter-spacing: 3px;
-            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.92);
+            letter-spacing: 2px;
             position: relative;
             padding: 0 15px;
-            transform: translateY(5px);
+            animation: signatureElegant 12s var(--spring-elegant) infinite 1.8s;
         }
         
-        /* Эффект перетекания чернил */
-        @keyframes inkFlow {
-            0%, 100% {
-                filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.1));
-            }
-            50% {
-                filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.2)) 
-                       drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
-            }
-        }
-        
-        /* Эффект легкого движения как от руки */
-        @keyframes handDrawn {
-            0%, 100% {
-                transform: translateY(5px) rotate(0.2deg);
-            }
-            25% {
-                transform: translateY(5px) rotate(-0.1deg);
-            }
-            50% {
-                transform: translateY(4px) rotate(0.3deg);
-            }
-            75% {
-                transform: translateY(6px) rotate(-0.2deg);
-            }
-        }
-        
-        /* Микро-анимация для каллиграфического эффекта */
-        .signature::after {
-            content: '';
+        /* Тонкие тени для глубины */
+        .ios-signature::before {
+            content: attr(data-text);
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            color: transparent;
+            z-index: -1;
             background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.03),
-                transparent
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                transparent 100%
             );
-            animation: shimmer 6s infinite linear;
-            pointer-events: none;
+            -webkit-background-clip: text;
+            background-clip: text;
+            filter: blur(2px);
+            animation: signatureShadow 12s ease-in-out infinite;
         }
         
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(100%);
-            }
+        /* Эффект мягкого свечения */
+        .ios-signature::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(
+                circle,
+                rgba(255, 255, 255, 0.03) 0%,
+                rgba(255, 255, 255, 0.01) 40%,
+                transparent 70%
+            );
+            transform: translate(-50%, -50%);
+            z-index: -2;
+            animation: signatureGlow 8s ease-in-out infinite;
+            opacity: 0;
         }
         
-        @keyframes signatureAppear {
+        @keyframes signatureSpringIn {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(20px) scale(0.95);
+            }
+            70% {
+                opacity: 0.9;
+                transform: translateY(-3px) scale(1.02);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
         
-        @keyframes breathing {
+        @keyframes signatureElegant {
             0%, 100% {
-                opacity: 0.85;
-                transform: translateY(5px) scale(1);
+                transform: 
+                    translateY(0)
+                    scale(1)
+                    rotate(0.05deg);
+                opacity: 0.92;
+                filter: 
+                    drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1))
+                    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            }
+            33% {
+                transform: 
+                    translateY(-0.8px)
+                    scale(1.001)
+                    rotate(-0.03deg);
+                opacity: 0.95;
+                filter: 
+                    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12))
+                    drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25));
+            }
+            66% {
+                transform: 
+                    translateY(0.5px)
+                    scale(0.999)
+                    rotate(0.07deg);
+                opacity: 0.9;
+                filter: 
+                    drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08))
+                    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+            }
+        }
+        
+        @keyframes signatureShadow {
+            0%, 100% {
+                transform: translateX(-0.3px) translateY(0.3px);
+                opacity: 0.5;
             }
             50% {
-                opacity: 1;
-                transform: translateY(5px) scale(1.03);
+                transform: translateX(0.3px) translateY(-0.2px);
+                opacity: 0.8;
             }
         }
         
-        /* ========= LIGHT MODE SUPPORT ========= */
+        @keyframes signatureGlow {
+            0%, 100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.95);
+            }
+            50% {
+                opacity: 0.3;
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+        }
+        
+        /* ========= iOS LIGHT MODE ========= */
         @media (prefers-color-scheme: light) {
+            :root {
+                --ios-background: #F2F2F7;
+                --ios-surface: rgba(242, 242, 247, 0.92);
+                --ios-border: rgba(0, 0, 0, 0.12);
+                --ios-highlight: rgba(0, 0, 0, 0.06);
+            }
+            
             body {
-                background: var(--white);
-                color: var(--black);
+                color: #000000;
             }
             
-            .background-container {
+            .ios-background {
                 background: 
-                    radial-gradient(circle at 20% 30%, var(--gray-900) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 70%, var(--gray-800) 0%, transparent 50%),
-                    var(--white);
+                    radial-gradient(circle at 20% 30%, 
+                        rgba(220, 220, 220, 0.4) 0%, 
+                        transparent 60%),
+                    radial-gradient(circle at 80% 70%, 
+                        rgba(200, 200, 200, 0.3) 0%, 
+                        transparent 60%),
+                    var(--ios-background);
             }
             
-            .glass-card {
-                background: var(--glass-light);
-                border: 1px solid var(--glass-border-light);
+            .ios-glass-card {
+                background: var(--ios-surface-light);
+                border: 1px solid var(--ios-border-light);
                 box-shadow: 
-                    0 25px 100px rgba(0, 0, 0, 0.1),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-                    0 0 0 1px rgba(0, 0, 0, 0.05);
+                    var(--elevation-3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                    0 0 0 1px rgba(0, 0, 0, 0.02);
             }
             
-            .avatar-frame {
-                background: linear-gradient(135deg, var(--gray-800), var(--gray-600));
-                border: 3px solid rgba(0, 0, 0, 0.1);
-                box-shadow: 
-                    0 15px 40px rgba(0, 0, 0, 0.1),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            .ios-glass-card::before {
+                background: 
+                    linear-gradient(135deg, 
+                        rgba(255, 255, 255, 0.3) 0%, 
+                        transparent 30%, 
+                        rgba(0, 0, 0, 0.02) 70%),
+                    radial-gradient(circle at 30% 20%, 
+                        rgba(255, 255, 255, 0.2) 0%, 
+                        transparent 60%);
             }
             
-            .avatar-initials {
+            .ios-avatar-frame {
+                background: linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.6) 0%, 
+                    rgba(255, 255, 255, 0.4) 50%, 
+                    rgba(0, 0, 0, 0.05) 100%);
+                border: 1px solid var(--ios-border-light);
+            }
+            
+            .ios-button {
+                color: #000000;
+            }
+            
+            .ios-button:active {
+                background: var(--ios-highlight-light);
+            }
+            
+            @media (hover: hover) {
+                .ios-button:hover {
+                    background: var(--ios-highlight-light);
+                }
+            }
+            
+            .ios-button-icon {
+                background: linear-gradient(135deg, 
+                    rgba(0, 0, 0, 0.05) 0%, 
+                    rgba(0, 0, 0, 0.08) 100%);
+            }
+            
+            .ios-button-icon span {
+                color: rgba(0, 0, 0, 0.9);
+            }
+            
+            .ios-button-title {
+                color: rgba(0, 0, 0, 0.95);
+            }
+            
+            .ios-button-subtitle {
+                color: rgba(0, 0, 0, 0.6);
+            }
+            
+            .ios-button-chevron {
+                color: rgba(0, 0, 0, 0.3);
+            }
+            
+            .ios-button:active .ios-button-chevron {
                 color: rgba(0, 0, 0, 0.8);
             }
             
-            .telegram-buttons {
+            .ios-button-stack {
                 background: rgba(0, 0, 0, 0.02);
-                border: 1px solid var(--glass-border-light);
-                box-shadow: 
-                    0 8px 32px rgba(0, 0, 0, 0.05),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+                border: 1px solid var(--ios-border-light);
             }
             
-            .telegram-buttons .glass-button {
-                border-bottom: 1px solid var(--glass-border-light);
+            .ios-button-stack .ios-button {
+                border-bottom: 0.5px solid var(--ios-border-light);
             }
             
-            .glass-button {
-                background: rgba(0, 0, 0, 0.02);
-                color: var(--black);
+            .ios-single-button {
+                border: 1px solid var(--ios-border-light);
             }
             
-            .glass-button:hover {
-                background: rgba(0, 0, 0, 0.05);
+            .ios-group-label {
+                color: rgba(0, 0, 0, 0.5);
+                background: rgba(255, 255, 255, 0.6);
             }
             
-            .glass-button::before {
+            .ios-signature {
+                color: rgba(0, 0, 0, 0.88);
+            }
+            
+            .ios-signature::before {
                 background: linear-gradient(
-                    90deg,
-                    transparent,
-                    rgba(0, 0, 0, 0.05),
-                    transparent
+                    135deg,
+                    rgba(0, 0, 0, 0.15) 0%,
+                    rgba(0, 0, 0, 0.08) 50%,
+                    transparent 100%
                 );
             }
             
-            .instagram-button {
-                border: 1px solid var(--glass-border-light);
-                box-shadow: 
-                    0 8px 32px rgba(0, 0, 0, 0.05),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            .ios-signature::after {
+                background: radial-gradient(
+                    circle,
+                    rgba(0, 0, 0, 0.05) 0%,
+                    rgba(0, 0, 0, 0.02) 40%,
+                    transparent 70%
+                );
             }
             
-            .signature {
-                color: var(--black);
-                text-shadow: 
-                    0 2px 10px rgba(0, 0, 0, 0.1),
-                    0 0 20px rgba(0, 0, 0, 0.05);
-            }
-            
-            .telegram-block::before {
-                color: var(--gray-500);
+            @keyframes signatureElegant {
+                0%, 100% {
+                    transform: 
+                        translateY(0)
+                        scale(1)
+                        rotate(0.05deg);
+                    opacity: 0.88;
+                    filter: 
+                        drop-shadow(0 1px 1px rgba(0, 0, 0, 0.05))
+                        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+                }
+                33% {
+                    transform: 
+                        translateY(-0.8px)
+                        scale(1.001)
+                        rotate(-0.03deg);
+                    opacity: 0.92;
+                    filter: 
+                        drop-shadow(0 1px 2px rgba(0, 0, 0, 0.08))
+                        drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
+                }
+                66% {
+                    transform: 
+                        translateY(0.5px)
+                        scale(0.999)
+                        rotate(0.07deg);
+                    opacity: 0.85;
+                    filter: 
+                        drop-shadow(0 1px 1px rgba(0, 0, 0, 0.04))
+                        drop-shadow(0 2px 3px rgba(0, 0, 0, 0.08));
+                }
             }
         }
         
-        /* ========= RESPONSIVE ADJUSTMENTS ========= */
-        @media (max-width: 480px) {
-            .glass-card {
-                padding: 40px 28px;
-                border-radius: 28px;
+        /* ========= iOS RESPONSIVE ========= */
+        @media (max-width: 400px) {
+            .ios-glass-card {
+                padding: 28px 24px;
+                border-radius: 22px;
                 max-width: 92%;
             }
             
-            .avatar-container {
-                width: 120px;
-                height: 120px;
-                margin-bottom: 36px;
+            .ios-avatar-container {
+                width: 84px;
+                height: 84px;
+                margin-bottom: 28px;
             }
             
-            .avatar-initials {
-                font-size: 40px;
+            .ios-button {
+                padding: 14px 18px;
+                font-size: 16px;
             }
             
-            .glass-button {
-                padding: 20px 22px;
-                font-size: 17px;
-            }
-            
-            .button-icon {
-                width: 26px;
-                height: 26px;
+            .ios-button-icon {
+                width: 28px;
+                height: 28px;
                 margin-right: 14px;
-                font-size: 20px;
             }
             
-            .signature {
-                font-size: 36px;
-                letter-spacing: 2px;
-                padding: 0 10px;
+            .ios-button-icon span {
+                font-size: 16px;
             }
             
-            .signature-container {
+            .ios-button-title {
+                font-size: 16px;
+            }
+            
+            .ios-button-subtitle {
+                font-size: 13px;
+            }
+            
+            .ios-signature {
+                font-size: 34px;
+                letter-spacing: 1px;
+            }
+            
+            .ios-signature-container {
                 bottom: 32px;
             }
         }
         
         @media (max-width: 360px) {
-            .glass-card {
-                padding: 36px 24px;
-                border-radius: 24px;
-            }
-            
-            .avatar-container {
-                width: 110px;
-                height: 110px;
-                margin-bottom: 32px;
-            }
-            
-            .avatar-initials {
-                font-size: 36px;
-            }
-            
-            .glass-button {
-                padding: 18px 20px;
-                font-size: 16px;
-            }
-            
-            .button-icon {
-                width: 24px;
-                height: 24px;
-                margin-right: 12px;
-                font-size: 18px;
-            }
-            
-            .signature {
+            .ios-signature {
                 font-size: 32px;
-                letter-spacing: 1px;
             }
         }
         
-        /* ========= SAFARI OPTIMIZATIONS ========= */
+        /* ========= iOS SAFARI OPTIMIZATIONS ========= */
         @supports (-webkit-touch-callout: none) {
-            .glass-card {
-                -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(180%);
+            .ios-glass-card,
+            .ios-glass-overlay,
+            .ios-button-stack,
+            .ios-single-button {
+                -webkit-backdrop-filter: blur(var(--blur-medium)) saturate(180%);
             }
             
-            .signature {
+            .ios-signature {
                 -webkit-font-smoothing: antialiased;
                 -webkit-text-stroke: 0.2px rgba(255, 255, 255, 0.2);
             }
+            
+            body {
+                -webkit-overflow-scrolling: touch;
+            }
         }
         
-        /* ========= REDUCED MOTION PREFERENCES ========= */
+        /* ========= iOS REDUCED MOTION ========= */
         @media (prefers-reduced-motion: reduce) {
             *,
             *::before,
@@ -749,127 +827,122 @@
                 transition-duration: 0.01ms !important;
             }
             
-            .signature {
+            .ios-glass-card {
+                animation: cardSpringIn 0.01ms var(--spring-smooth) forwards;
+            }
+            
+            .ios-signature-container {
+                animation: signatureSpringIn 0.01ms var(--spring-smooth) 0.5s forwards;
+            }
+            
+            .ios-signature {
                 animation: none !important;
                 opacity: 1;
+                filter: none !important;
+            }
+            
+            .ios-signature::before,
+            .ios-signature::after {
+                display: none;
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- Динамический стеклянный фон -->
-    <div class="background-container"></div>
+    <!-- iOS Background -->
+    <div class="ios-background"></div>
     
-    <!-- Слои стекла для глубины -->
-    <div class="glass-layers">
-        <div class="glass-layer"></div>
-        <div class="glass-layer"></div>
-        <div class="glass-layer"></div>
-    </div>
+    <!-- iOS Glass Overlay -->
+    <div class="ios-glass-overlay"></div>
     
-    <!-- Парящие частицы -->
-    <div class="particles" id="particles"></div>
-    
-    <!-- Основной контейнер -->
-    <div class="main-container">
-        <!-- Стеклянная карточка -->
-        <div class="glass-card">
-            <!-- Аватар -->
-            <div class="avatar-container">
-                <div class="avatar-frame">
-                    <img src="MAYB AVA.jpg" 
-     alt="ADanyAVA" 
-     style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+    <!-- iOS Content Container -->
+    <div class="ios-container">
+        <!-- iOS Glass Card -->
+        <div class="ios-glass-card">
+            <!-- Avatar -->
+            <div class="ios-avatar-container">
+                <div class="ios-avatar-frame">
+                    <img src="MAYB AVA.jpg" alt="ADanyAVA">
                 </div>
             </div>
             
-            <!-- Блок Telegram -->
-            <div class="telegram-block">
-                <div class="telegram-buttons">
-                    <a href="https://t.me/AkosDany" class="glass-button" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-                        <span class="button-icon">🗣</span>
-                        <span class="button-text">TG Bio</span>
-                        <span class="button-arrow">→</span>
+            <!-- Telegram Buttons -->
+            <div class="ios-button-group">
+                <div class="ios-group-label">Telegram</div>
+                <div class="ios-button-stack">
+                    <a href="https://t.me/AkosDany" class="ios-button" target="_blank" rel="noopener noreferrer" aria-label="TG Bio">
+                        <div class="ios-button-icon">
+                            <span>🗣</span>
+                        </div>
+                        <div class="ios-button-text">
+                            <div class="ios-button-title">TG Bio</div>
+                            <div class="ios-button-subtitle">Личный контакт</div>
+                        </div>
+                        <div class="ios-button-chevron">›</div>
                     </a>
                     
-                    <a href="https://t.me/akocdany" class="glass-button" target="_blank" rel="noopener noreferrer" aria-label="Telegram канал">
-                        <span class="button-icon">🏙</span>
-                        <span class="button-text">TGK</span>
-                        <span class="button-arrow">→</span>
+                    <a href="https://t.me/akocdany" class="ios-button" target="_blank" rel="noopener noreferrer" aria-label="TGK">
+                        <div class="ios-button-icon">
+                            <span>🏙</span>
+                        </div>
+                        <div class="ios-button-text">
+                            <div class="ios-button-title">TGK</div>
+                            <div class="ios-button-subtitle">Канал и публикации</div>
+                        </div>
+                        <div class="ios-button-chevron">›</div>
                     </a>
                 </div>
             </div>
             
-            <!-- Кнопка Instagram -->
-            <a href="https://instagram.com/akosdany" class="glass-button instagram-button" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <span class="button-icon">🌪</span>
-                <span class="button-text">Instagram</span>
-                <span class="button-arrow">→</span>
+            <!-- Instagram Button -->
+            <a href="https://instagram.com/akosdany" class="ios-button ios-single-button" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <div class="ios-button-icon">
+                    <span>🌪</span>
+                </div>
+                <div class="ios-button-text">
+                    <div class="ios-button-title">Instagram</div>
+                    <div class="ios-button-subtitle">Фото и проекты</div>
+                </div>
+                <div class="ios-button-chevron">›</div>
             </a>
         </div>
         
-        <!-- Каллиграфическая подпись -->
-        <div class="signature-container">
-            <div class="signature">Akosdany</div>
+        <!-- Элегантная подпись -->
+        <div class="ios-signature-container">
+            <div class="ios-signature" data-text="Akosdany">Akosdany</div>
         </div>
     </div>
 
     <script>
-        // ========= PARTICLE SYSTEM =========
-        (function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = window.innerWidth < 768 ? 15 : 25;
+        // ========= iOS SYSTEM INTERACTIONS =========
+        (function initIOSInteractions() {
+            const buttons = document.querySelectorAll('.ios-button');
+            const card = document.querySelector('.ios-glass-card');
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                const size = Math.random() * 3 + 1;
-                const startX = Math.random() * 100;
-                const duration = Math.random() * 20 + 15;
-                const delay = Math.random() * 10;
-                
-                particle.style.cssText = `
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${startX}%;
-                    animation-duration: ${duration}s;
-                    animation-delay: ${delay}s;
-                    opacity: ${Math.random() * 0.1 + 0.05};
-                `;
-                
-                container.appendChild(particle);
-            }
-        })();
-        
-        // ========= FIXED TOUCH INTERACTIONS =========
-        (function initInteractions() {
-            const buttons = document.querySelectorAll('.glass-button');
-            
+            // iOS-style tap feedback
             buttons.forEach(button => {
-                // Убираем e.preventDefault() и используем passive: true
+                // Touch start
                 button.addEventListener('touchstart', function(e) {
-                    // Только визуальный эффект без блокировки
-                    this.style.transform = 'scale(0.98)';
-                    this.style.transition = 'transform 0.1s';
+                    this.classList.add('ios-tap-active');
                     
-                    // Ripple эффект (упрощенный)
-                    const ripple = document.createElement('span');
+                    // iOS-style ripple (subtle)
+                    const ripple = document.createElement('div');
                     const rect = this.getBoundingClientRect();
-                    const x = e.touches[0].clientX - rect.left;
-                    const y = e.touches[0].clientY - rect.top;
+                    const touch = e.touches[0];
+                    const x = touch.clientX - rect.left;
+                    const y = touch.clientY - rect.top;
                     
                     ripple.style.cssText = `
                         position: absolute;
-                        width: 100px;
-                        height: 100px;
+                        width: 60px;
+                        height: 60px;
                         border-radius: 50%;
-                        background: rgba(255, 255, 255, 0.15);
-                        left: ${x - 50}px;
-                        top: ${y - 50}px;
+                        background: rgba(255, 255, 255, 0.1);
+                        left: ${x - 30}px;
+                        top: ${y - 30}px;
                         transform: scale(0);
-                        animation: rippleExpand 0.4s ease-out;
+                        animation: iosRipple 0.4s cubic-bezier(0.2, 0, 0, 1);
                         pointer-events: none;
                         z-index: 1;
                     `;
@@ -877,88 +950,78 @@
                     this.appendChild(ripple);
                     
                     setTimeout(() => {
-                        if (ripple.parentNode === this) {
-                            this.removeChild(ripple);
-                        }
+                        ripple.remove();
                     }, 400);
                     
-                }, { passive: true }); // Важно: passive: true чтобы не блокировать тапы
-                
-                button.addEventListener('touchend', function() {
-                    this.style.transform = '';
-                    this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
                 }, { passive: true });
                 
+                // Touch end
+                button.addEventListener('touchend', function() {
+                    this.classList.remove('ios-tap-active');
+                }, { passive: true });
+                
+                // Touch cancel
                 button.addEventListener('touchcancel', function() {
-                    this.style.transform = '';
-                    this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                    this.classList.remove('ios-tap-active');
                 }, { passive: true });
             });
             
-            // Добавляем стиль для ripple эффекта
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes rippleExpand {
+            // Add ripple animation style
+            const rippleStyle = document.createElement('style');
+            rippleStyle.textContent = `
+                @keyframes iosRipple {
                     to {
                         transform: scale(2);
                         opacity: 0;
                     }
                 }
+                .ios-tap-active {
+                    transform: scale(0.98) !important;
+                }
             `;
-            document.head.appendChild(style);
-        })();
-        
-        // ========= FIXED ORIENTATION EFFECT =========
-        (function initOrientationEffect() {
-            const card = document.querySelector('.glass-card');
+            document.head.appendChild(rippleStyle);
             
-            // Отключаем сложные эффекты для мобильных устройств
-            if (window.DeviceOrientationEvent && window.matchMedia('(pointer: fine)').matches) {
-                let lastBeta = 0;
-                let lastGamma = 0;
+            // Subtle parallax for iOS feel
+            if (window.matchMedia('(pointer: fine)').matches) {
+                let mouseX = 0;
+                let mouseY = 0;
                 
-                window.addEventListener('deviceorientation', (e) => {
-                    const beta = e.beta || 0;
-                    const gamma = e.gamma || 0;
-                    
-                    lastBeta += (beta - lastBeta) * 0.1;
-                    lastGamma += (gamma - lastGamma) * 0.1;
-                    
-                    const maxTilt = 15;
-                    const tiltX = Math.max(Math.min(lastBeta, maxTilt), -maxTilt) * 0.1;
-                    const tiltY = Math.max(Math.min(lastGamma, maxTilt), -maxTilt) * 0.1;
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
                     
                     card.style.transform = `
                         translateY(0)
-                        rotateX(${tiltX}deg)
-                        rotateY(${tiltY}deg)
+                        rotateX(${mouseY * 1}deg)
+                        rotateY(${-mouseX * 1}deg)
                     `;
-                }, { passive: true });
+                });
+                
+                document.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
             }
         })();
         
-        // ========= INITIALIZATION =========
+        // ========= iOS PAGE LOAD =========
         document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            initInteractions();
-            initOrientationEffect();
+            initIOSInteractions();
             
-            // Дополнительная анимация для подписи
-            const signature = document.querySelector('.signature');
+            // iOS-style page load completion
             setTimeout(() => {
-                if (signature) {
-                    signature.style.animation += ', handDrawn 15s ease-in-out infinite';
-                }
-            }, 2000);
+                document.body.style.opacity = '1';
+            }, 100);
         });
         
-        // ========= HANDLE ORIENTATION CHANGE =========
+        // ========= iOS ORIENTATION HANDLING =========
+        let orientationTimeout;
         window.addEventListener('orientationchange', () => {
-            setTimeout(() => {
-                const container = document.getElementById('particles');
-                if (container) {
-                    container.innerHTML = '';
-                    createParticles();
+            clearTimeout(orientationTimeout);
+            orientationTimeout = setTimeout(() => {
+                // Reset card transform
+                const card = document.querySelector('.ios-glass-card');
+                if (card) {
+                    card.style.transform = 'translateY(0)';
                 }
             }, 300);
         });
