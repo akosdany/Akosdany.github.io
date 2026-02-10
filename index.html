@@ -843,33 +843,33 @@
             }
         })();
         
-        // ========= SMOOTH INTERACTIONS =========
+        // ========= FIXED TOUCH INTERACTIONS =========
         (function initInteractions() {
             const buttons = document.querySelectorAll('.glass-button');
             
             buttons.forEach(button => {
-                // Эффект при касании
+                // Убираем e.preventDefault() и используем passive: true
                 button.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    this.style.transform = 'translateY(0) scale(0.98)';
+                    // Только визуальный эффект без блокировки
+                    this.style.transform = 'scale(0.98)';
+                    this.style.transition = 'transform 0.1s';
                     
-                    // Создаем ripple эффект
+                    // Ripple эффект (упрощенный)
                     const ripple = document.createElement('span');
                     const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.touches[0].clientX - rect.left - size / 2;
-                    const y = e.touches[0].clientY - rect.top - size / 2;
+                    const x = e.touches[0].clientX - rect.left;
+                    const y = e.touches[0].clientY - rect.top;
                     
                     ripple.style.cssText = `
                         position: absolute;
-                        width: ${size}px;
-                        height: ${size}px;
+                        width: 100px;
+                        height: 100px;
                         border-radius: 50%;
-                        background: rgba(255, 255, 255, 0.2);
-                        left: ${x}px;
-                        top: ${y}px;
+                        background: rgba(255, 255, 255, 0.15);
+                        left: ${x - 50}px;
+                        top: ${y - 50}px;
                         transform: scale(0);
-                        animation: rippleExpand 0.6s ease-out;
+                        animation: rippleExpand 0.4s ease-out;
                         pointer-events: none;
                         z-index: 1;
                     `;
@@ -880,15 +880,19 @@
                         if (ripple.parentNode === this) {
                             this.removeChild(ripple);
                         }
-                    }, 600);
-                }, { passive: false });
+                    }, 400);
+                    
+                }, { passive: true }); // Важно: passive: true чтобы не блокировать тапы
                 
                 button.addEventListener('touchend', function() {
-                    this.style.transform = 'translateY(-1px)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
+                    this.style.transform = '';
+                    this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                }, { passive: true });
+                
+                button.addEventListener('touchcancel', function() {
+                    this.style.transform = '';
+                    this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                }, { passive: true });
             });
             
             // Добавляем стиль для ripple эффекта
@@ -896,7 +900,7 @@
             style.textContent = `
                 @keyframes rippleExpand {
                     to {
-                        transform: scale(1);
+                        transform: scale(2);
                         opacity: 0;
                     }
                 }
@@ -904,11 +908,12 @@
             document.head.appendChild(style);
         })();
         
-        // ========= DEVICE ORIENTATION EFFECT =========
+        // ========= FIXED ORIENTATION EFFECT =========
         (function initOrientationEffect() {
             const card = document.querySelector('.glass-card');
             
-            if (window.DeviceOrientationEvent) {
+            // Отключаем сложные эффекты для мобильных устройств
+            if (window.DeviceOrientationEvent && window.matchMedia('(pointer: fine)').matches) {
                 let lastBeta = 0;
                 let lastGamma = 0;
                 
@@ -916,11 +921,9 @@
                     const beta = e.beta || 0;
                     const gamma = e.gamma || 0;
                     
-                    // Плавное изменение
                     lastBeta += (beta - lastBeta) * 0.1;
                     lastGamma += (gamma - lastGamma) * 0.1;
                     
-                    // Ограничиваем углы
                     const maxTilt = 15;
                     const tiltX = Math.max(Math.min(lastBeta, maxTilt), -maxTilt) * 0.1;
                     const tiltY = Math.max(Math.min(lastGamma, maxTilt), -maxTilt) * 0.1;
@@ -930,23 +933,7 @@
                         rotateX(${tiltX}deg)
                         rotateY(${tiltY}deg)
                     `;
-                });
-            } else {
-                // Fallback для устройств без гироскопа
-                document.addEventListener('mousemove', (e) => {
-                    const x = (e.clientX / window.innerWidth) - 0.5;
-                    const y = (e.clientY / window.innerHeight) - 0.5;
-                    
-                    card.style.transform = `
-                        translateY(0)
-                        rotateX(${y * 2}deg)
-                        rotateY(${-x * 2}deg)
-                    `;
-                });
-                
-                document.addEventListener('mouseleave', () => {
-                    card.style.transform = 'translateY(0)';
-                });
+                }, { passive: true });
             }
         })();
         
@@ -959,14 +946,15 @@
             // Дополнительная анимация для подписи
             const signature = document.querySelector('.signature');
             setTimeout(() => {
-                signature.style.animation += ', handDrawn 15s ease-in-out infinite';
+                if (signature) {
+                    signature.style.animation += ', handDrawn 15s ease-in-out infinite';
+                }
             }, 2000);
         });
         
         // ========= HANDLE ORIENTATION CHANGE =========
         window.addEventListener('orientationchange', () => {
             setTimeout(() => {
-                // Пересоздаем частицы при изменении ориентации
                 const container = document.getElementById('particles');
                 if (container) {
                     container.innerHTML = '';
