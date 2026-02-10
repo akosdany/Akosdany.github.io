@@ -6,7 +6,7 @@
   <title>AK</title>
 
   <style>
-    /* Общие стили */
+    /* Фоновый блок с анимацией волн */
     body {
       margin: 0;
       height: 100vh;
@@ -14,23 +14,45 @@
       align-items: center;
       justify-content: center;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      
-      /* Градиентный фон с анимацией */
-      background: linear-gradient(135deg, #0e0e0e, #1a1a1a, #2a2a2a);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
       color: #eaeaea;
+      overflow: hidden;
+      background: #0e0e0e;
     }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    /* Волны */
+    .wave {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: radial-gradient(circle at 50% 50%, #222, #000);
+      border-radius: 45%;
+      animation: waveMove 20s linear infinite;
+      opacity: 0.15;
     }
 
-    /* Блок визитки */
+    .wave:nth-child(2) {
+      animation-duration: 25s;
+      opacity: 0.1;
+    }
+
+    .wave:nth-child(3) {
+      animation-duration: 30s;
+      opacity: 0.08;
+    }
+
+    @keyframes waveMove {
+      0% { transform: translateX(0) translateY(0) rotate(0deg); }
+      50% { transform: translateX(10%) translateY(5%) rotate(45deg); }
+      100% { transform: translateX(0) translateY(0) rotate(360deg); }
+    }
+
+    /* Визитка */
     .card {
+      position: relative;
       text-align: center;
+      z-index: 10;
       animation: fadeIn 1.2s ease;
     }
 
@@ -45,7 +67,7 @@
       opacity: 0.8;
     }
 
-    /* Аватарка */
+    /* Аватар */
     img {
       width: 120px;
       height: 120px;
@@ -81,7 +103,6 @@
       transform: scale(1.03);
     }
 
-    /* Появление кнопок по очереди */
     a:nth-of-type(1) { animation-delay: 1s; }
     a:nth-of-type(2) { animation-delay: 1.3s; }
     a:nth-of-type(3) { animation-delay: 1.6s; }
@@ -99,16 +120,17 @@
 </head>
 
 <body>
+  <!-- Волны -->
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+
+  <!-- Визитка -->
   <div class="card">
     <h1>AK</h1>
-
-    <!-- Аватарка -->
     <img src="avatar.png" alt="AK avatar">
-
-    <!-- Подпись -->
     <p>digital / real life</p>
 
-    <!-- Ссылки -->
     <a href="https://t.me/ak_os">💬 Telegram</a>
     <a href="mailto:ak.os@mail.ru">✉️ Email</a>
     <a href="https://instagram.com/ak_os">📷 Instagram</a>
