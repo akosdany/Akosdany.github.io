@@ -61,9 +61,22 @@
     align-items: center;
     overscroll-behavior: none;
     position: fixed;
+    perspective: 1000px;
+    transform-style: preserve-3d;
   }
 
-  /* ========= OPTIMIZED BACKGROUND ========= */
+  /* ========= LIVE CARD CONTAINER ========= */
+  .live-card-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    transition: transform 0.1s linear;
+  }
+
+  /* ========= DYNAMIC BACKGROUND ========= */
   .ios-background {
     position: absolute;
     width: 100%;
@@ -73,20 +86,22 @@
       radial-gradient(ellipse at 20% 30%, rgba(255, 255, 255, 0.035) 0%, transparent 45%),
       radial-gradient(ellipse at 80% 70%, rgba(255, 255, 255, 0.025) 0%, transparent 45%),
       var(--ios-bg);
+    transition: transform 0.3s ease-out;
   }
 
-  /* ========= PARTICLE ANIMATIONS IN CSS ========= */
+  /* ========= PARTICLE ANIMATIONS ========= */
   .particles-container {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: -2;
     overflow: hidden;
+    transform-style: preserve-3d;
   }
 
   @keyframes particleMove {
     0% {
-      transform: translate(0, 0) scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
       opacity: 0;
     }
     10% {
@@ -96,12 +111,12 @@
       opacity: 0.15;
     }
     100% {
-      transform: translate(calc(var(--move-x) * 1vw), calc(var(--move-y) * -1vh)) scale(1.3);
+      transform: translate3d(calc(var(--move-x) * 1vw), calc(var(--move-y) * -1vh), 0) scale(1.3);
       opacity: 0;
     }
   }
 
-  /* ========= FIXED CARD ANIMATION ========= */
+  /* ========= LIVE CARD (3D ENABLED) ========= */
   .ios-card {
     position: relative;
     width: 87%;
@@ -113,12 +128,21 @@
     border-radius: var(--ios-radius-large);
     padding: 44px 30px 36px;
     box-shadow: var(--ios-shadow-card), var(--ios-inset), var(--ios-glow);
-    animation: 
-      cardAppear 1s var(--ios-timing) forwards,
-      cardFloat 8s ease-in-out infinite 1s;
+    animation: cardAppear 1s var(--ios-timing) forwards;
     opacity: 0;
     transform: translate3d(0, 40px, 0) scale(0.96);
     overflow: hidden;
+    transform-style: preserve-3d;
+    transition: 
+      transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+      box-shadow 0.6s ease;
+  }
+
+  /* Live Photo эффект - плавающая анимация */
+  .ios-card.live-mode {
+    animation: 
+      cardAppear 1s var(--ios-timing) forwards,
+      liveFloat 8s ease-in-out infinite 1s;
   }
 
   @keyframes cardAppear {
@@ -128,16 +152,22 @@
     }
   }
 
-  @keyframes cardFloat {
+  @keyframes liveFloat {
     0%, 100% {
       transform: translate3d(0, 0, 0);
     }
+    25% {
+      transform: translate3d(0, -5px, 0) rotate(0.2deg);
+    }
     50% {
-      transform: translate3d(0, -10px, 0);
+      transform: translate3d(0, 0, 0) rotate(-0.1deg);
+    }
+    75% {
+      transform: translate3d(0, -3px, 0) rotate(0.1deg);
     }
   }
 
-  /* ========= OPTIMIZED AVATAR ========= */
+  /* ========= AVATAR WITH DEPTH EFFECT ========= */
   .ios-avatar-container {
     position: relative;
     width: 124px;
@@ -146,6 +176,7 @@
     animation: avatarAppear 0.8s var(--ios-timing) 0.2s forwards;
     opacity: 0;
     transform: translate3d(0, 20px, 0) scale(0.9);
+    transform-style: preserve-3d;
   }
 
   .ios-avatar {
@@ -158,6 +189,12 @@
       0 15px 50px rgba(0, 0, 0, 0.55),
       inset 0 1px 0 rgba(255, 255, 255, 0.18);
     animation: avatarGlow 4s ease-in-out infinite;
+    transform: translateZ(20px);
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .ios-card:hover .ios-avatar {
+    transform: translateZ(30px) scale(1.02);
   }
 
   @keyframes avatarAppear {
@@ -180,7 +217,7 @@
     }
   }
 
-  /* ========= TYPOGRAPHY ========= */
+  /* ========= TYPOGRAPHY WITH DEPTH ========= */
   .ios-title {
     font-size: 52px;
     font-weight: 700;
@@ -192,6 +229,7 @@
     opacity: 0;
     transform: translate3d(0, 15px, 0);
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    transform: translateZ(10px);
   }
 
   .ios-subtitle {
@@ -205,6 +243,7 @@
     animation: subtitleAppear 0.8s var(--ios-timing) 0.6s forwards;
     opacity: 0;
     transform: translate3d(0, 15px, 0);
+    transform: translateZ(5px);
   }
 
   .ios-subtitle::after {
@@ -234,11 +273,12 @@
     100% { transform: translateX(-50%) scaleX(1); }
   }
 
-  /* ========= ACTION BUTTONS ========= */
+  /* ========= 3D ACTION BUTTONS ========= */
   .ios-actions {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    transform-style: preserve-3d;
   }
 
   .ios-action {
@@ -252,7 +292,7 @@
     padding: 18px 24px;
     font-size: 18px;
     font-weight: 500;
-    transition: var(--ios-transition);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(24px);
@@ -261,7 +301,10 @@
     transform: translate3d(0, 20px, 0);
     animation: actionSlide 0.6s var(--ios-timing) forwards;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+    box-shadow: 
+      0 5px 25px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+    transform: translateZ(15px);
   }
 
   .ios-action:nth-child(1) { animation-delay: 0.8s; }
@@ -273,10 +316,17 @@
     100% { opacity: 1; transform: translate3d(0, 0, 0); }
   }
 
+  .ios-action:hover {
+    transform: translateZ(20px) translateY(-2px);
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.35),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
   .ios-action:active {
     background: rgba(60, 60, 67, 0.85);
-    transform: translate3d(0, 2px, 0) scale(0.98);
-    transition: all 0.15s;
+    transform: translateZ(15px) translateY(0) scale(0.98);
+    transition: all 0.1s;
   }
 
   .ios-action-icon {
@@ -289,31 +339,34 @@
     font-size: 22px;
     opacity: 0.92;
     flex-shrink: 0;
-    transition: var(--ios-transition);
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
     filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
+    transform: translateZ(5px);
   }
 
-  .ios-action:active .ios-action-icon {
-    transform: scale(1.1);
+  .ios-action:hover .ios-action-icon {
+    transform: translateZ(10px) scale(1.1);
   }
 
   .ios-action-text {
     flex-grow: 1;
     letter-spacing: 0.2px;
+    transform: translateZ(2px);
   }
 
   .ios-action-arrow {
     opacity: 0.55;
     font-size: 18px;
     transition: transform 0.3s var(--ios-timing);
+    transform: translateZ(3px);
   }
 
-  .ios-action:active .ios-action-arrow {
+  .ios-action:hover .ios-action-arrow {
     opacity: 0.85;
-    transform: translateX(4px);
+    transform: translateZ(5px) translateX(4px);
   }
 
-  /* ========= STATUS INDICATOR ========= */
+  /* ========= LIVING STATUS INDICATOR ========= */
   .status-indicator {
     position: absolute;
     bottom: -2px;
@@ -324,13 +377,70 @@
     border-radius: 50%;
     border: 3px solid var(--ios-gray-2);
     animation: statusPulse 2.5s ease-in-out infinite;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.35);
+    box-shadow: 
+      0 0 15px rgba(255, 255, 255, 0.35),
+      0 0 0 2px rgba(255, 255, 255, 0.1);
     z-index: 2;
+    transform: translateZ(25px);
   }
 
   @keyframes statusPulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.25); opacity: 0.9; }
+    0%, 100% { 
+      transform: translateZ(25px) scale(1);
+      opacity: 1;
+      box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.35),
+        0 0 0 2px rgba(255, 255, 255, 0.1);
+    }
+    50% { 
+      transform: translateZ(30px) scale(1.25);
+      opacity: 0.9;
+      box-shadow: 
+        0 0 25px rgba(255, 255, 255, 0.5),
+        0 0 0 3px rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  /* ========= LIVE PHOTO BADGE ========= */
+  .live-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateZ(10px);
+  }
+
+  .live-badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #FF453A;
+    border-radius: 50%;
+    animation: livePulse 1.5s infinite;
+  }
+
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+
+  .ios-card:hover .live-badge {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* ========= LIGHT MODE ========= */
@@ -345,7 +455,15 @@
       background: var(--ios-elevated-light);
       border: 1px solid var(--ios-border-light);
       color: var(--ios-text-dark);
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+      box-shadow: 
+        0 5px 25px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    }
+    
+    .ios-action:hover {
+      box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.1);
     }
     
     .ios-action:active {
@@ -362,6 +480,19 @@
     .status-indicator {
       background: rgba(0, 0, 0, 0.85);
       border-color: var(--ios-elevated-light);
+      box-shadow: 
+        0 0 15px rgba(0, 0, 0, 0.2),
+        0 0 0 2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .live-badge {
+      background: rgba(255, 255, 255, 0.9);
+      color: #1D1D1F;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .live-badge::before {
+      background: #FF453A;
     }
   }
 
@@ -391,6 +522,13 @@
       padding: 17px 22px;
       font-size: 17px;
     }
+    
+    .live-badge {
+      top: 16px;
+      right: 16px;
+      padding: 4px 10px;
+      font-size: 11px;
+    }
   }
 
   /* ========= REDUCED MOTION ========= */
@@ -400,63 +538,211 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+    
+    .ios-card.live-mode {
+      animation: cardAppear 1s var(--ios-timing) forwards;
+    }
   }
 </style>
 </head>
 
 <body>
-  <div class="ios-background"></div>
+  <div class="ios-background" id="dynamic-bg"></div>
   <div class="particles-container" id="particles"></div>
 
-  <div class="ios-card">
-    <div class="ios-avatar-container">
-      <img src="avatar.png" alt="AK" class="ios-avatar" 
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-           loading="eager" decoding="async" width="124" height="124">
-      <div class="ios-avatar-placeholder" style="display: none; animation: inherit; background: linear-gradient(135deg, var(--ios-gray-2), var(--ios-gray-3)); color: rgba(255, 255, 255, 0.5); font-size: 32px; align-items: center; justify-content: center; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.22);">AK</div>
-      <div class="status-indicator"></div>
-    </div>
-    
-    <h1 class="ios-title">AK</h1>
-    <div style="text-align: center; margin-bottom: 44px;">
-      <p class="ios-subtitle">digital / real life</p>
-    </div>
-    
-    <div class="ios-actions">
-      <a href="https://t.me/ak_os" class="ios-action" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-        <span class="ios-action-icon">✉️</span>
-        <span class="ios-action-text">Telegram</span>
-        <span class="ios-action-arrow">→</span>
-      </a>
+  <div class="live-card-container" id="card-container">
+    <div class="ios-card live-mode" id="main-card">
+      <div class="live-badge">LIVE</div>
       
-      <a href="mailto:ak.os@mail.ru" class="ios-action" aria-label="Email">
-        <span class="ios-action-icon">📮</span>
-        <span class="ios-action-text">Email</span>
-        <span class="ios-action-arrow">→</span>
-      </a>
+      <div class="ios-avatar-container">
+        <img src="avatar.png" alt="AK" class="ios-avatar" 
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+             loading="eager" decoding="async" width="124" height="124">
+        <div class="ios-avatar-placeholder" style="display: none; animation: inherit; background: linear-gradient(135deg, var(--ios-gray-2), var(--ios-gray-3)); color: rgba(255, 255, 255, 0.5); font-size: 32px; align-items: center; justify-content: center; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.22);">AK</div>
+        <div class="status-indicator"></div>
+      </div>
       
-      <a href="https://instagram.com/ak_os" class="ios-action" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-        <span class="ios-action-icon">📸</span>
-        <span class="ios-action-text">Instagram</span>
-        <span class="ios-action-arrow">→</span>
-      </a>
+      <h1 class="ios-title">AK</h1>
+      <div style="text-align: center; margin-bottom: 44px;">
+        <p class="ios-subtitle">digital / real life</p>
+      </div>
       
-      <a href="contact.vcf" class="ios-action" download="AK.vcf" aria-label="Сохранить контакт">
-        <span class="ios-action-icon">⬇️</span>
-        <span class="ios-action-text">Сохранить контакт</span>
-        <span class="ios-action-arrow">→</span>
-      </a>
+      <div class="ios-actions">
+        <a href="https://t.me/ak_os" class="ios-action" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+          <span class="ios-action-icon">✉️</span>
+          <span class="ios-action-text">Telegram</span>
+          <span class="ios-action-arrow">→</span>
+        </a>
+        
+        <a href="mailto:ak.os@mail.ru" class="ios-action" aria-label="Email">
+          <span class="ios-action-icon">📮</span>
+          <span class="ios-action-text">Email</span>
+          <span class="ios-action-arrow">→</span>
+        </a>
+        
+        <a href="https://instagram.com/ak_os" class="ios-action" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <span class="ios-action-icon">📸</span>
+          <span class="ios-action-text">Instagram</span>
+          <span class="ios-action-arrow">→</span>
+        </a>
+        
+        <a href="contact.vcf" class="ios-action" download="AK.vcf" aria-label="Сохранить контакт">
+          <span class="ios-action-icon">⬇️</span>
+          <span class="ios-action-text">Сохранить контакт</span>
+          <span class="ios-action-arrow">→</span>
+        </a>
+      </div>
     </div>
   </div>
 
   <script>
+    // ========= LIVE PHOTO GYROSCOPE EFFECT =========
+    (function initLivePhotoEffect() {
+      const card = document.getElementById('main-card');
+      const container = document.getElementById('card-container');
+      const bg = document.getElementById('dynamic-bg');
+      let isGyroActive = false;
+      let lastX = 0, lastY = 0;
+      let currentX = 0, currentY = 0;
+      const sensitivity = 0.15; // Чувствительность гироскопа
+      const smoothing = 0.3;    // Сглаживание движений
+      
+      // Проверяем поддержку гироскопа
+      if (window.DeviceOrientationEvent) {
+        window.addEventListener('deviceorientation', handleDeviceOrientation);
+        isGyroActive = true;
+        console.log('📱 Гироскоп активирован - карточка живая!');
+      } else {
+        console.log('⚠️ Гироскоп не поддерживается, используется мышь/тач');
+        initMouseParallax();
+      }
+      
+      function handleDeviceOrientation(event) {
+        // Получаем данные с гироскопа
+        const beta = event.beta || 0;   // Наклон вперед/назад (-180 to 180)
+        const gamma = event.gamma || 0; // Наклон влево/вправо (-90 to 90)
+        
+        // Ограничиваем углы для плавности
+        const targetX = Math.max(Math.min(gamma, 15), -15);
+        const targetY = Math.max(Math.min(beta, 15), -15);
+        
+        // Сглаживаем движения
+        currentX += (targetX - currentX) * smoothing;
+        currentY += (targetY - currentY) * smoothing;
+        
+        // Применяем трансформацию к карточке
+        const rotateY = currentX * sensitivity;
+        const rotateX = currentY * -sensitivity;
+        
+        card.style.transform = `
+          translate3d(0, 0, 0)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+        `;
+        
+        // Параллакс для фона
+        bg.style.transform = `
+          translate3d(${rotateY * 0.5}%, ${rotateX * 0.5}%, 0)
+        `;
+        
+        // Легкое смещение контейнера для глубины
+        container.style.transform = `
+          perspective(1000px)
+          rotateX(${rotateX * 0.2}deg)
+          rotateY(${rotateY * 0.2}deg)
+        `;
+      }
+      
+      function initMouseParallax() {
+        let mouseX = 0, mouseY = 0;
+        let targetX = 0, targetY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+          mouseX = (e.clientX / window.innerWidth) - 0.5;
+          mouseY = (e.clientY / window.innerHeight) - 0.5;
+        });
+        
+        document.addEventListener('touchmove', (e) => {
+          if (e.touches.length > 0) {
+            mouseX = (e.touches[0].clientX / window.innerWidth) - 0.5;
+            mouseY = (e.touches[0].clientY / window.innerHeight) - 0.5;
+          }
+        }, { passive: true });
+        
+        function updateParallax() {
+          targetX += (mouseX * 20 - targetX) * 0.1;
+          targetY += (mouseY * 20 - targetY) * 0.1;
+          
+          card.style.transform = `
+            translate3d(0, 0, 0)
+            rotateX(${targetY * 0.1}deg)
+            rotateY(${targetX * 0.1}deg)
+          `;
+          
+          bg.style.transform = `
+            translate3d(${targetX * 0.3}%, ${targetY * 0.3}%, 0)
+          `;
+          
+          requestAnimationFrame(updateParallax);
+        }
+        
+        updateParallax();
+      }
+      
+      // Добавляем вибрацию при первом движении (если поддерживается)
+      if ('vibrate' in navigator) {
+        let hasVibrated = false;
+        const originalHandler = handleDeviceOrientation;
+        handleDeviceOrientation = function(event) {
+          originalHandler(event);
+          if (!hasVibrated && (Math.abs(event.gamma) > 5 || Math.abs(event.beta) > 5)) {
+            navigator.vibrate(10);
+            hasVibrated = true;
+          }
+        };
+      }
+      
+      // Автоцентрирование при бездействии
+      let idleTimer;
+      function resetToCenter() {
+        currentX += (0 - currentX) * 0.05;
+        currentY += (0 - currentY) * 0.05;
+        
+        card.style.transform = `
+          translate3d(0, 0, 0)
+          rotateX(${currentY * -sensitivity}deg)
+          rotateY(${currentX * sensitivity}deg)
+        `;
+        
+        if (Math.abs(currentX) > 0.1 || Math.abs(currentY) > 0.1) {
+          requestAnimationFrame(resetToCenter);
+        }
+      }
+      
+      // Сброс при изменении ориентации
+      window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+          currentX = 0;
+          currentY = 0;
+          card.style.transform = 'translate3d(0, 0, 0)';
+          bg.style.transform = 'translate3d(0, 0, 0)';
+          container.style.transform = 'perspective(1000px)';
+          
+          setTimeout(() => {
+            if (isGyroActive) {
+              card.classList.add('live-mode');
+            }
+          }, 300);
+        }, 200);
+      });
+    })();
+    
     // ========= OPTIMIZED PARTICLE SYSTEM =========
     (function initParticles() {
       const container = document.getElementById('particles');
       const isMobile = window.innerWidth < 768;
       const particleCount = isMobile ? 15 : 25;
       
-      // Создаем DocumentFragment для пакетной вставки
       const fragment = document.createDocumentFragment();
       
       for (let i = 0; i < particleCount; i++) {
@@ -488,20 +774,18 @@
       container.appendChild(fragment);
     })();
     
-    // ========= SIMPLE TOUCH HANDLING =========
+    // ========= TOUCH HANDLING =========
     (function initTouchHandlers() {
       const actions = document.querySelectorAll('.ios-action');
       
       actions.forEach(action => {
-        let ripple = null;
-        
         action.addEventListener('touchstart', function(e) {
           const rect = this.getBoundingClientRect();
           const size = Math.max(rect.width, rect.height);
           const x = e.touches[0].clientX - rect.left - size / 2;
           const y = e.touches[0].clientY - rect.top - size / 2;
           
-          ripple = document.createElement('span');
+          const ripple = document.createElement('span');
           ripple.style.cssText = `
             position: absolute;
             width: ${size}px;
@@ -516,21 +800,15 @@
           `;
           
           this.appendChild(ripple);
-        }, { passive: true });
-        
-        action.addEventListener('touchend', function() {
-          if (ripple) {
-            setTimeout(() => {
-              if (ripple.parentNode === this) {
-                this.removeChild(ripple);
-              }
-              ripple = null;
-            }, 500);
-          }
+          
+          setTimeout(() => {
+            if (ripple.parentNode === this) {
+              this.removeChild(ripple);
+            }
+          }, 500);
         }, { passive: true });
       });
       
-      // Добавляем стиль для ripple
       const style = document.createElement('style');
       style.textContent = `
         @keyframes rippleExpand {
@@ -548,7 +826,6 @@
       const avatar = document.querySelector('.ios-avatar');
       if (!avatar) return;
       
-      // Проверяем, есть ли уже загруженное изображение
       if (avatar.complete && avatar.naturalHeight !== 0) {
         avatar.style.opacity = '1';
         return;
@@ -565,19 +842,6 @@
         }
       });
     })();
-    
-    // ========= ORIENTATION HANDLING =========
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        const container = document.getElementById('particles');
-        if (container && window.innerWidth < 768 !== (container.childElementCount <= 15)) {
-          container.innerHTML = '';
-          initParticles();
-        }
-      }, 250);
-    });
     
     // ========= INITIALIZATION =========
     document.addEventListener('DOMContentLoaded', () => {
