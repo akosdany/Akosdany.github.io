@@ -1,666 +1,894 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>AK • Контакт</title>
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔗</text></svg>">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#000000">
-<meta name="description" content="Контактная информация AK">
-
-<style>
-  /* ========= OPTIMIZED VARIABLES ========= */
-  :root {
-    --ios-bg: #000000;
-    --ios-card: rgba(28, 28, 30, 0.92);
-    --ios-card-light: rgba(242, 242, 247, 0.96);
-    --ios-elevated: rgba(44, 44, 46, 0.78);
-    --ios-elevated-light: rgba(255, 255, 255, 0.92);
-    --ios-text: #FFFFFF;
-    --ios-text-secondary: #8E8E93;
-    --ios-text-dark: #1D1D1F;
-    --ios-border: rgba(255, 255, 255, 0.18);
-    --ios-border-light: rgba(0, 0, 0, 0.14);
-    --ios-highlight: rgba(255, 255, 255, 0.12);
-    --ios-gray-2: #2C2C2E;
-    --ios-gray-3: #3A3A3C;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>AK • Визитка</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔗</text></svg>">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
     
-    --font-sf: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
-    --ios-radius-large: 28px;
-    --ios-transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --ios-timing: cubic-bezier(0.4, 0.0, 0.2, 1);
-    
-    --ios-shadow-card: 0 20px 80px rgba(0, 0, 0, 0.75);
-    --ios-shadow-light: 0 20px 80px rgba(0, 0, 0, 0.12);
-    --ios-inset: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    --ios-glow: 0 0 50px rgba(255, 255, 255, 0.06);
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-  }
-
-  html, body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-family: var(--font-sf);
-    background: var(--ios-bg);
-    color: var(--ios-text);
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overscroll-behavior: none;
-    position: fixed;
-  }
-
-  /* ========= OPTIMIZED BACKGROUND ========= */
-  .ios-background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -3;
-    background: 
-      radial-gradient(ellipse at 20% 30%, rgba(255, 255, 255, 0.035) 0%, transparent 45%),
-      radial-gradient(ellipse at 80% 70%, rgba(255, 255, 255, 0.025) 0%, transparent 45%),
-      var(--ios-bg);
-  }
-
-  /* ========= PARTICLE ANIMATIONS IN CSS ========= */
-  .particles-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    overflow: hidden;
-  }
-
-  @keyframes particleMove {
-    0% {
-      transform: translate(0, 0) scale(1);
-      opacity: 0;
-    }
-    10% {
-      opacity: var(--opacity);
-    }
-    90% {
-      opacity: 0.15;
-    }
-    100% {
-      transform: translate(calc(var(--move-x) * 1vw), calc(var(--move-y) * -1vh)) scale(1.3);
-      opacity: 0;
-    }
-  }
-
-  /* ========= FIXED CARD ANIMATION ========= */
-  .ios-card {
-    position: relative;
-    width: 87%;
-    max-width: 400px;
-    backdrop-filter: saturate(180%) blur(40px);
-    -webkit-backdrop-filter: saturate(180%) blur(40px);
-    background: var(--ios-card);
-    border: 1px solid var(--ios-border);
-    border-radius: var(--ios-radius-large);
-    padding: 44px 30px 36px;
-    box-shadow: var(--ios-shadow-card), var(--ios-inset), var(--ios-glow);
-    animation: 
-      cardAppear 1s var(--ios-timing) forwards,
-      cardFloat 6s ease-in-out infinite 1.2s;
-    opacity: 0;
-    transform: translate3d(0, 40px, 0) scale(0.96);
-    overflow: hidden;
-    z-index: 10;
-  }
-
-  @keyframes cardAppear {
-    100% {
-      opacity: 1;
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-  }
-
-  @keyframes cardFloat {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-8px);
-    }
-  }
-
-  /* ========= PERFECT CIRCLE AVATAR ========= */
-  .ios-avatar-container {
-    position: relative;
-    width: 124px;
-    height: 124px;
-    margin: 0 auto 36px;
-    animation: avatarAppear 0.8s var(--ios-timing) 0.2s forwards;
-    opacity: 0;
-    transform: translate3d(0, 20px, 0) scale(0.9);
-  }
-
-  .ios-avatar {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid rgba(255, 255, 255, 0.22);
-    box-shadow: 
-      0 15px 50px rgba(0, 0, 0, 0.55),
-      inset 0 1px 0 rgba(255, 255, 255, 0.18);
-    animation: avatarGlow 4s ease-in-out infinite;
-    display: block;
-  }
-
-  /* БЕЛАЯ МИГАЮЩАЯ ТОЧКА */
-  .blinking-dot {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    width: 16px;
-    height: 16px;
-    background: #FFFFFF;
-    border-radius: 50%;
-    border: 3px solid var(--ios-gray-2);
-    animation: blinkDot 2s ease-in-out infinite;
-    box-shadow: 
-      0 0 15px rgba(255, 255, 255, 0.8),
-      0 0 0 2px rgba(255, 255, 255, 0.1);
-    z-index: 2;
-  }
-
-  @keyframes blinkDot {
-    0%, 100% { 
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% { 
-      opacity: 0.7;
-      transform: scale(1.1);
-    }
-  }
-
-  @keyframes avatarAppear {
-    100% {
-      opacity: 1;
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-  }
-
-  @keyframes avatarGlow {
-    0%, 100% {
-      box-shadow: 
-        0 15px 50px rgba(0, 0, 0, 0.55),
-        inset 0 1px 0 rgba(255, 255, 255, 0.18);
-    }
-    50% {
-      box-shadow: 
-        0 15px 60px rgba(0, 0, 0, 0.75),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    }
-  }
-
-  /* ========= TYPOGRAPHY ========= */
-  .ios-title {
-    font-size: 52px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    color: var(--ios-text);
-    margin-bottom: 6px;
-    text-align: center;
-    animation: titleAppear 0.8s var(--ios-timing) 0.4s forwards;
-    opacity: 0;
-    transform: translate3d(0, 15px, 0);
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
-  }
-
-  .ios-subtitle {
-    font-size: 19px;
-    font-weight: 500;
-    color: var(--ios-text-secondary);
-    margin-bottom: 44px;
-    text-align: center;
-    letter-spacing: 0.5px;
-    position: relative;
-    animation: subtitleAppear 0.8s var(--ios-timing) 0.6s forwards;
-    opacity: 0;
-    transform: translate3d(0, 15px, 0);
-  }
-
-  .ios-subtitle::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 42px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.35);
-    border-radius: 1px;
-    animation: lineExtend 0.8s var(--ios-timing) 1s forwards;
-    transform-origin: left;
-    transform: translateX(-50%) scaleX(0);
-  }
-
-  @keyframes titleAppear {
-    100% { opacity: 1; transform: translate3d(0, 0, 0); }
-  }
-
-  @keyframes subtitleAppear {
-    100% { opacity: 1; transform: translate3d(0, 0, 0); }
-  }
-
-  @keyframes lineExtend {
-    100% { transform: translateX(-50%) scaleX(1); }
-  }
-
-  /* ========= ACTION BUTTONS ========= */
-  .ios-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .ios-action {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--ios-text);
-    background: var(--ios-elevated);
-    border: 1px solid var(--ios-border);
-    border-radius: 16px;
-    padding: 18px 24px;
-    font-size: 18px;
-    font-weight: 500;
-    transition: var(--ios-transition);
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    opacity: 0;
-    transform: translate3d(0, 20px, 0);
-    animation: actionSlide 0.6s var(--ios-timing) forwards;
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
-  }
-
-  .ios-action:nth-child(1) { animation-delay: 0.8s; }
-  .ios-action:nth-child(2) { animation-delay: 0.9s; }
-  .ios-action:nth-child(3) { animation-delay: 1.0s; }
-  .ios-action:nth-child(4) { animation-delay: 1.1s; }
-
-  @keyframes actionSlide {
-    100% { opacity: 1; transform: translate3d(0, 0, 0); }
-  }
-
-  .ios-action:active {
-    background: rgba(60, 60, 67, 0.85);
-    transform: translateY(2px) scale(0.98);
-    transition: all 0.1s;
-  }
-
-  .ios-action-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    opacity: 0.92;
-    flex-shrink: 0;
-    transition: var(--ios-transition);
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.25));
-  }
-
-  .ios-action:active .ios-action-icon {
-    transform: scale(1.1);
-  }
-
-  .ios-action-text {
-    flex-grow: 1;
-    letter-spacing: 0.2px;
-  }
-
-  .ios-action-arrow {
-    opacity: 0.55;
-    font-size: 18px;
-    transition: transform 0.3s var(--ios-timing);
-  }
-
-  .ios-action:active .ios-action-arrow {
-    opacity: 0.85;
-    transform: translateX(4px);
-  }
-
-  /* ========= LIGHT MODE ========= */
-  @media (prefers-color-scheme: light) {
-    .ios-card {
-      background: var(--ios-card-light);
-      border: 1px solid var(--ios-border-light);
-      box-shadow: var(--ios-shadow-light), inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 0 50px rgba(0, 0, 0, 0.06);
-    }
-    
-    .ios-action {
-      background: var(--ios-elevated-light);
-      border: 1px solid var(--ios-border-light);
-      color: var(--ios-text-dark);
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
-    }
-    
-    .ios-action:active {
-      background: rgba(230, 230, 235, 0.95);
-    }
-    
-    .ios-avatar {
-      border: 3px solid rgba(0, 0, 0, 0.18);
-      box-shadow: 
-        0 15px 50px rgba(0, 0, 0, 0.18),
-        inset 0 1px 0 rgba(255, 255, 255, 0.85);
-    }
-    
-    .blinking-dot {
-      background: #000000;
-      border-color: var(--ios-elevated-light);
-      box-shadow: 
-        0 0 15px rgba(0, 0, 0, 0.8),
-        0 0 0 2px rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  /* ========= RESPONSIVE ========= */
-  @media (max-width: 380px) {
-    .ios-card {
-      padding: 40px 24px 32px;
-      border-radius: 24px;
-    }
-    
-    .ios-avatar-container {
-      width: 116px;
-      height: 116px;
-      margin-bottom: 32px;
-    }
-    
-    .ios-title {
-      font-size: 48px;
-    }
-    
-    .ios-subtitle {
-      font-size: 18px;
-      margin-bottom: 40px;
-    }
-    
-    .ios-action {
-      padding: 17px 22px;
-      font-size: 17px;
-    }
-    
-    .blinking-dot {
-      width: 14px;
-      height: 14px;
-      bottom: 6px;
-      right: 6px;
-    }
-  }
-
-  /* ========= REDUCED MOTION ========= */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-</style>
+    <style>
+        /* ========= CSS RESET & VARIABLES ========= */
+        :root {
+            /* Монохромная палитра */
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-50: #0A0A0A;
+            --gray-100: #111111;
+            --gray-200: #1A1A1A;
+            --gray-300: #2D2D2D;
+            --gray-400: #404040;
+            --gray-500: #5C5C5C;
+            --gray-600: #8A8A8A;
+            --gray-700: #B3B3B3;
+            --gray-800: #D1D1D1;
+            --gray-900: #E8E8E8;
+            
+            /* Полупрозрачные цвета для glassmorphism */
+            --glass-dark: rgba(15, 15, 15, 0.85);
+            --glass-light: rgba(255, 255, 255, 0.85);
+            --glass-border-dark: rgba(255, 255, 255, 0.12);
+            --glass-border-light: rgba(0, 0, 0, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.1);
+            --glass-shadow: rgba(0, 0, 0, 0.2);
+            
+            /* Эффекты */
+            --blur-amount: 30px;
+            --shadow-intensity: 0.3;
+            
+            /* Анимации */
+            --transition-smooth: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            --transition-quick: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Типографика */
+            --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+            --font-handwriting: 'Dancing Script', cursive, 'Apple Chancery', 'Segoe Print', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: var(--font-system);
+            background: var(--black);
+            color: var(--white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overscroll-behavior: none;
+            position: fixed;
+        }
+        
+        /* ========= DYNAMIC GLASS BACKGROUND ========= */
+        .background-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            overflow: hidden;
+            background: 
+                radial-gradient(circle at 20% 30%, var(--gray-100) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, var(--gray-200) 0%, transparent 50%),
+                var(--black);
+            animation: gradientShift 20s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 0%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 50% 100%; }
+            75% { background-position: 0% 100%; }
+        }
+        
+        /* ========= GLASS LAYERS & REFLECTIONS ========= */
+        .glass-layers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        
+        .glass-layer {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--glass-highlight) 0%, transparent 70%);
+            opacity: 0.05;
+            animation: floatLayer 25s infinite linear;
+        }
+        
+        .glass-layer:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 10%;
+            animation-duration: 30s;
+            animation-delay: 0s;
+        }
+        
+        .glass-layer:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            top: 60%;
+            left: 70%;
+            animation-duration: 35s;
+            animation-delay: 5s;
+        }
+        
+        .glass-layer:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            top: 30%;
+            left: 80%;
+            animation-duration: 28s;
+            animation-delay: 10s;
+        }
+        
+        @keyframes floatLayer {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.05;
+            }
+            25% {
+                transform: translate(30px, 20px) rotate(90deg);
+                opacity: 0.08;
+            }
+            50% {
+                transform: translate(0, 40px) rotate(180deg);
+                opacity: 0.05;
+            }
+            75% {
+                transform: translate(-30px, 20px) rotate(270deg);
+                opacity: 0.08;
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+                opacity: 0.05;
+            }
+        }
+        
+        /* ========= FLOATING PARTICLES ========= */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--white);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 20s infinite linear;
+            filter: blur(1px);
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            90% {
+                opacity: 0.05;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        /* ========= MAIN GLASS CARD ========= */
+        .main-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .glass-card {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            backdrop-filter: blur(var(--blur-amount)) saturate(180%);
+            -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(180%);
+            background: var(--glass-dark);
+            border: 1px solid var(--glass-border-dark);
+            border-radius: 32px;
+            padding: 48px 36px;
+            box-shadow: 
+                0 25px 100px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+            animation: 
+                cardAppear 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+                cardFloat 8s ease-in-out infinite 1.2s;
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            overflow: hidden;
+        }
+        
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--glass-highlight),
+                transparent
+            );
+            transition: left 0.8s ease;
+        }
+        
+        .glass-card:hover::before {
+            left: 100%;
+        }
+        
+        @keyframes cardAppear {
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes cardFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-5px) rotate(0.3deg);
+            }
+            50% {
+                transform: translateY(0) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-3px) rotate(-0.2deg);
+            }
+        }
+        
+        /* ========= AVATAR PLACEHOLDER ========= */
+        .avatar-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 40px;
+            position: relative;
+            animation: avatarGlow 4s ease-in-out infinite;
+        }
+        
+        .avatar-frame {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gray-200), var(--gray-400));
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .avatar-frame::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 30%,
+                rgba(255, 255, 255, 0.03) 50%,
+                transparent 70%
+            );
+            transform: rotate(45deg);
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        .avatar-initials {
+            font-size: 48px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 1px;
+        }
+        
+        @keyframes avatarGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.05));
+            }
+            50% {
+                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.1));
+            }
+        }
+        
+        @keyframes shine {
+            0%, 100% {
+                transform: rotate(45deg) translateX(-100%);
+            }
+            50% {
+                transform: rotate(45deg) translateX(100%);
+            }
+        }
+        
+        /* ========= TELEGRAM BLOCK ========= */
+        .telegram-block {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        
+        .telegram-block::before {
+            content: 'Telegram';
+            position: absolute;
+            top: -28px;
+            left: 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-600);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .telegram-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border-dark);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        /* ========= BUTTON STYLES ========= */
+        .glass-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 22px 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: none;
+            color: var(--white);
+            font-size: 18px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition-quick);
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .telegram-buttons .glass-button {
+            border-bottom: 1px solid var(--glass-border-dark);
+        }
+        
+        .telegram-buttons .glass-button:last-child {
+            border-bottom: none;
+        }
+        
+        .glass-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--glass-highlight),
+                transparent
+            );
+            transition: left 0.6s ease;
+        }
+        
+        .glass-button:hover::before {
+            left: 100%;
+        }
+        
+        .glass-button:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-1px);
+        }
+        
+        .glass-button:active {
+            transform: translateY(0);
+            transition: all 0.1s;
+        }
+        
+        .button-icon {
+            width: 28px;
+            height: 28px;
+            margin-right: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            opacity: 0.9;
+            transition: var(--transition-quick);
+        }
+        
+        .glass-button:hover .button-icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .button-text {
+            flex: 1;
+            letter-spacing: 0.3px;
+        }
+        
+        .button-arrow {
+            opacity: 0.5;
+            font-size: 18px;
+            transition: var(--transition-quick);
+        }
+        
+        .glass-button:hover .button-arrow {
+            opacity: 0.8;
+            transform: translateX(4px);
+        }
+        
+        /* ========= INSTAGRAM BUTTON ========= */
+        .instagram-button {
+            margin-top: 8px;
+            border-radius: 18px;
+            border: 1px solid var(--glass-border-dark);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        /* ========= HANDWRITING SIGNATURE ========= */
+        .signature-container {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            animation: signatureAppear 2s ease-out 1.5s forwards;
+            opacity: 0;
+        }
+        
+        .signature {
+            font-family: var(--font-handwriting);
+            font-size: 32px;
+            font-weight: 500;
+            color: var(--white);
+            text-shadow: 
+                0 2px 10px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 255, 255, 0.1);
+            animation: breathing 4s ease-in-out infinite;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+        
+        @keyframes signatureAppear {
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes breathing {
+            0%, 100% {
+                opacity: 0.85;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.02);
+            }
+        }
+        
+        /* ========= LIGHT MODE SUPPORT ========= */
+        @media (prefers-color-scheme: light) {
+            body {
+                background: var(--white);
+                color: var(--black);
+            }
+            
+            .background-container {
+                background: 
+                    radial-gradient(circle at 20% 30%, var(--gray-900) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, var(--gray-800) 0%, transparent 50%),
+                    var(--white);
+            }
+            
+            .glass-card {
+                background: var(--glass-light);
+                border: 1px solid var(--glass-border-light);
+                box-shadow: 
+                    0 25px 100px rgba(0, 0, 0, 0.1),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                    0 0 0 1px rgba(0, 0, 0, 0.05);
+            }
+            
+            .avatar-frame {
+                background: linear-gradient(135deg, var(--gray-800), var(--gray-600));
+                border: 3px solid rgba(0, 0, 0, 0.1);
+                box-shadow: 
+                    0 15px 40px rgba(0, 0, 0, 0.1),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            }
+            
+            .avatar-initials {
+                color: rgba(0, 0, 0, 0.8);
+            }
+            
+            .telegram-buttons {
+                background: rgba(0, 0, 0, 0.02);
+                border: 1px solid var(--glass-border-light);
+                box-shadow: 
+                    0 8px 32px rgba(0, 0, 0, 0.05),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            }
+            
+            .telegram-buttons .glass-button {
+                border-bottom: 1px solid var(--glass-border-light);
+            }
+            
+            .glass-button {
+                background: rgba(0, 0, 0, 0.02);
+                color: var(--black);
+            }
+            
+            .glass-button:hover {
+                background: rgba(0, 0, 0, 0.05);
+            }
+            
+            .glass-button::before {
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(0, 0, 0, 0.05),
+                    transparent
+                );
+            }
+            
+            .instagram-button {
+                border: 1px solid var(--glass-border-light);
+                box-shadow: 
+                    0 8px 32px rgba(0, 0, 0, 0.05),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            }
+            
+            .signature {
+                color: var(--black);
+                text-shadow: 
+                    0 2px 10px rgba(0, 0, 0, 0.1),
+                    0 0 20px rgba(0, 0, 0, 0.05);
+            }
+            
+            .telegram-block::before {
+                color: var(--gray-500);
+            }
+        }
+        
+        /* ========= RESPONSIVE ADJUSTMENTS ========= */
+        @media (max-width: 480px) {
+            .glass-card {
+                padding: 40px 28px;
+                border-radius: 28px;
+                max-width: 92%;
+            }
+            
+            .avatar-container {
+                width: 120px;
+                height: 120px;
+                margin-bottom: 36px;
+            }
+            
+            .avatar-initials {
+                font-size: 40px;
+            }
+            
+            .glass-button {
+                padding: 20px 22px;
+                font-size: 17px;
+            }
+            
+            .button-icon {
+                width: 26px;
+                height: 26px;
+                margin-right: 14px;
+                font-size: 20px;
+            }
+            
+            .signature {
+                font-size: 28px;
+            }
+            
+            .signature-container {
+                bottom: 32px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .glass-card {
+                padding: 36px 24px;
+                border-radius: 24px;
+            }
+            
+            .avatar-container {
+                width: 110px;
+                height: 110px;
+                margin-bottom: 32px;
+            }
+            
+            .avatar-initials {
+                font-size: 36px;
+            }
+            
+            .glass-button {
+                padding: 18px 20px;
+                font-size: 16px;
+            }
+            
+            .button-icon {
+                width: 24px;
+                height: 24px;
+                margin-right: 12px;
+                font-size: 18px;
+            }
+            
+            .signature {
+                font-size: 26px;
+            }
+        }
+        
+        /* ========= SAFARI OPTIMIZATIONS ========= */
+        @supports (-webkit-touch-callout: none) {
+            .glass-card {
+                -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(180%);
+            }
+        }
+        
+        /* ========= REDUCED MOTION PREFERENCES ========= */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <!-- Оптимизированный фон -->
-  <div class="ios-background"></div>
-  
-  <!-- Система частиц -->
-  <div class="particles-container" id="particles"></div>
+    <!-- Динамический стеклянный фон -->
+    <div class="background-container"></div>
+    
+    <!-- Слои стекла для глубины -->
+    <div class="glass-layers">
+        <div class="glass-layer"></div>
+        <div class="glass-layer"></div>
+        <div class="glass-layer"></div>
+    </div>
+    
+    <!-- Парящие частицы -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Основной контейнер -->
+    <div class="main-container">
+        <!-- Стеклянная карточка -->
+        <div class="glass-card">
+            <!-- Аватар -->
+            <div class="avatar-container">
+                <div class="avatar-frame">
+                    <div class="avatar-initials">AK</div>
+                </div>
+            </div>
+            
+            <!-- Блок Telegram -->
+            <div class="telegram-block">
+                <div class="telegram-buttons">
+                    <a href="https://t.me/ak_os" class="glass-button" target="_blank" rel="noopener noreferrer" aria-label="Telegram контакт">
+                        <span class="button-icon">👤</span>
+                        <span class="button-text">Telegram контакт</span>
+                        <span class="button-arrow">→</span>
+                    </a>
+                    
+                    <a href="https://t.me/ak_os" class="glass-button" target="_blank" rel="noopener noreferrer" aria-label="Telegram канал">
+                        <span class="button-icon">📢</span>
+                        <span class="button-text">Telegram канал</span>
+                        <span class="button-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Кнопка Instagram -->
+            <a href="https://instagram.com/ak_os" class="glass-button instagram-button" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <span class="button-icon">📷</span>
+                <span class="button-text">Instagram</span>
+                <span class="button-arrow">→</span>
+            </a>
+        </div>
+        
+        <!-- Каллиграфическая подпись -->
+        <div class="signature-container">
+            <div class="signature">akosdany2005</div>
+        </div>
+    </div>
 
-  <!-- Основная карточка -->
-  <div class="ios-card">
-    <!-- Аватар -->
-    <div class="ios-avatar-container">
-      <img src="avatar.png" alt="AK" class="ios-avatar" 
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-           loading="eager" decoding="async" width="124" height="124">
-      <div class="ios-avatar-placeholder" style="display: none; animation: inherit; background: linear-gradient(135deg, var(--ios-gray-2), var(--ios-gray-3)); color: rgba(255, 255, 255, 0.5); font-size: 32px; align-items: center; justify-content: center; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.22);">AK</div>
-      <div class="blinking-dot"></div>
-    </div>
-    
-    <!-- Заголовок и подпись -->
-    <h1 class="ios-title">AK</h1>
-    <div style="text-align: center; margin-bottom: 44px;">
-      <p class="ios-subtitle">digital / real life</p>
-    </div>
-    
-    <!-- Действия -->
-    <div class="ios-actions">
-      <a href="https://t.me/ak_os" class="ios-action" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-        <span class="ios-action-icon">✉️</span>
-        <span class="ios-action-text">Telegram</span>
-        <span class="ios-action-arrow">→</span>
-      </a>
-      
-      <a href="mailto:ak.os@mail.ru" class="ios-action" aria-label="Email">
-        <span class="ios-action-icon">📮</span>
-        <span class="ios-action-text">Email</span>
-        <span class="ios-action-arrow">→</span>
-      </a>
-      
-      <a href="https://instagram.com/ak_os" class="ios-action" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-        <span class="ios-action-icon">📸</span>
-        <span class="ios-action-text">Instagram</span>
-        <span class="ios-action-arrow">→</span>
-      </a>
-      
-      <a href="contact.vcf" class="ios-action" download="AK.vcf" aria-label="Сохранить контакт">
-        <span class="ios-action-icon">⬇️</span>
-        <span class="ios-action-text">Сохранить контакт</span>
-        <span class="ios-action-arrow">→</span>
-      </a>
-    </div>
-  </div>
-
-  <script>
-    // ========= OPTIMIZED PARTICLE SYSTEM =========
-    (function initParticles() {
-      const container = document.getElementById('particles');
-      const isMobile = window.innerWidth < 768;
-      const particleCount = isMobile ? 15 : 25;
-      
-      // Создаем DocumentFragment для пакетной вставки
-      const fragment = document.createDocumentFragment();
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
+    <script>
+        // ========= PARTICLE SYSTEM =========
+        (function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = window.innerWidth < 768 ? 15 : 25;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 3 + 1;
+                const startX = Math.random() * 100;
+                const duration = Math.random() * 20 + 15;
+                const delay = Math.random() * 10;
+                
+                particle.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${startX}%;
+                    animation-duration: ${duration}s;
+                    animation-delay: ${delay}s;
+                    opacity: ${Math.random() * 0.1 + 0.05};
+                `;
+                
+                container.appendChild(particle);
+            }
+        })();
         
-        const size = Math.random() * 4 + 2;
-        const duration = Math.random() * 25 + 20;
-        const delay = Math.random() * 10;
-        const moveX = Math.random() * 200 - 100;
-        const moveY = Math.random() * 100 + 50;
-        const opacity = Math.random() * 0.2 + 0.1;
+        // ========= SMOOTH INTERACTIONS =========
+        (function initInteractions() {
+            const buttons = document.querySelectorAll('.glass-button');
+            
+            buttons.forEach(button => {
+                // Эффект при касании
+                button.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    this.style.transform = 'translateY(0) scale(0.98)';
+                    
+                    // Создаем ripple эффект
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.touches[0].clientX - rect.left - size / 2;
+                    const y = e.touches[0].clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        width: ${size}px;
+                        height: ${size}px;
+                        border-radius: 50%;
+                        background: rgba(255, 255, 255, 0.2);
+                        left: ${x}px;
+                        top: ${y}px;
+                        transform: scale(0);
+                        animation: rippleExpand 0.6s ease-out;
+                        pointer-events: none;
+                        z-index: 1;
+                    `;
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        if (ripple.parentNode === this) {
+                            this.removeChild(ripple);
+                        }
+                    }, 600);
+                }, { passive: false });
+                
+                button.addEventListener('touchend', function() {
+                    this.style.transform = 'translateY(-1px)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+            
+            // Добавляем стиль для ripple эффекта
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes rippleExpand {
+                    to {
+                        transform: scale(1);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        })();
         
-        particle.style.cssText = `
-          width: ${size}px;
-          height: ${size}px;
-          left: ${Math.random() * 100}%;
-          top: ${Math.random() * 100}%;
-          opacity: ${opacity};
-          animation: particleMove ${duration}s linear ${delay}s infinite;
-          --move-x: ${moveX};
-          --move-y: ${moveY};
-          --opacity: ${opacity};
-        `;
+        // ========= DEVICE ORIENTATION EFFECT =========
+        (function initOrientationEffect() {
+            const card = document.querySelector('.glass-card');
+            
+            if (window.DeviceOrientationEvent) {
+                let lastBeta = 0;
+                let lastGamma = 0;
+                
+                window.addEventListener('deviceorientation', (e) => {
+                    const beta = e.beta || 0;
+                    const gamma = e.gamma || 0;
+                    
+                    // Плавное изменение
+                    lastBeta += (beta - lastBeta) * 0.1;
+                    lastGamma += (gamma - lastGamma) * 0.1;
+                    
+                    // Ограничиваем углы
+                    const maxTilt = 15;
+                    const tiltX = Math.max(Math.min(lastBeta, maxTilt), -maxTilt) * 0.1;
+                    const tiltY = Math.max(Math.min(lastGamma, maxTilt), -maxTilt) * 0.1;
+                    
+                    card.style.transform = `
+                        translateY(0)
+                        rotateX(${tiltX}deg)
+                        rotateY(${tiltY}deg)
+                    `;
+                });
+            } else {
+                // Fallback для устройств без гироскопа
+                document.addEventListener('mousemove', (e) => {
+                    const x = (e.clientX / window.innerWidth) - 0.5;
+                    const y = (e.clientY / window.innerHeight) - 0.5;
+                    
+                    card.style.transform = `
+                        translateY(0)
+                        rotateX(${y * 2}deg)
+                        rotateY(${-x * 2}deg)
+                    `;
+                });
+                
+                document.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            }
+        })();
         
-        fragment.appendChild(particle);
-      }
-      
-      container.appendChild(fragment);
-    })();
-    
-    // ========= SIMPLE TOUCH HANDLING =========
-    (function initTouchHandlers() {
-      const actions = document.querySelectorAll('.ios-action');
-      
-      actions.forEach(action => {
-        let ripple = null;
+        // ========= INITIALIZATION =========
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            initInteractions();
+            initOrientationEffect();
+        });
         
-        action.addEventListener('touchstart', function(e) {
-          const rect = this.getBoundingClientRect();
-          const size = Math.max(rect.width, rect.height);
-          const x = e.touches[0].clientX - rect.left - size / 2;
-          const y = e.touches[0].clientY - rect.top - size / 2;
-          
-          ripple = document.createElement('span');
-          ripple.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.25);
-            left: ${x}px;
-            top: ${y}px;
-            transform: scale(0);
-            animation: rippleExpand 0.5s ease-out;
-            pointer-events: none;
-          `;
-          
-          this.appendChild(ripple);
-        }, { passive: true });
-        
-        action.addEventListener('touchend', function() {
-          if (ripple) {
+        // ========= HANDLE ORIENTATION CHANGE =========
+        window.addEventListener('orientationchange', () => {
             setTimeout(() => {
-              if (ripple.parentNode === this) {
-                this.removeChild(ripple);
-              }
-              ripple = null;
-            }, 500);
-          }
-        }, { passive: true });
-      });
-      
-      // Добавляем стиль для ripple
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes rippleExpand {
-          to {
-            transform: scale(1.5);
-            opacity: 0;
-          }
-        }
-      `;
-      document.head.appendChild(style);
-    })();
-    
-    // ========= IMAGE OPTIMIZATION =========
-    (function optimizeImage() {
-      const avatar = document.querySelector('.ios-avatar');
-      if (!avatar) return;
-      
-      // Проверяем, есть ли уже загруженное изображение
-      if (avatar.complete && avatar.naturalHeight !== 0) {
-        avatar.style.opacity = '1';
-        return;
-      }
-      
-      avatar.addEventListener('load', () => {
-        avatar.style.opacity = '1';
-      });
-      
-      avatar.addEventListener('error', () => {
-        const placeholder = document.querySelector('.ios-avatar-placeholder');
-        if (placeholder) {
-          placeholder.style.display = 'flex';
-        }
-      });
-    })();
-    
-    // ========= SIMPLE PARALLAX EFFECT =========
-    (function initParallax() {
-      const card = document.querySelector('.ios-card');
-      const bg = document.querySelector('.ios-background');
-      
-      let mouseX = 0, mouseY = 0;
-      let targetX = 0, targetY = 0;
-      
-      function updateParallax() {
-        // Плавное движение к цели
-        targetX += (mouseX * 20 - targetX) * 0.1;
-        targetY += (mouseY * 20 - targetY) * 0.1;
-        
-        // Если движение минимально, возвращаем в центр
-        if (Math.abs(mouseX) < 0.01 && Math.abs(mouseY) < 0.01) {
-          targetX *= 0.95;
-          targetY *= 0.95;
-        }
-        
-        // Применяем легкий параллакс
-        card.style.transform = `
-          translate3d(${targetX * 0.1}px, ${targetY * 0.1}px, 0)
-          rotateX(${targetY * 0.05}deg)
-          rotateY(${targetX * 0.05}deg)
-        `;
-        
-        bg.style.transform = `
-          translate3d(${targetX * -0.3}px, ${targetY * -0.3}px, 0)
-        `;
-        
-        requestAnimationFrame(updateParallax);
-      }
-      
-      // Отслеживаем движение мыши
-      document.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX / window.innerWidth) - 0.5;
-        mouseY = (e.clientY / window.innerHeight) - 0.5;
-      });
-      
-      // Отслеживаем движение на тач-устройствах
-      document.addEventListener('touchmove', (e) => {
-        if (e.touches.length > 0) {
-          mouseX = (e.touches[0].clientX / window.innerWidth) - 0.5;
-          mouseY = (e.touches[0].clientY / window.innerHeight) - 0.5;
-        }
-      }, { passive: true });
-      
-      // Сброс при уходе мыши/пальца
-      document.addEventListener('mouseleave', () => {
-        mouseX = 0;
-        mouseY = 0;
-      });
-      
-      document.addEventListener('touchend', () => {
-        mouseX = 0;
-        mouseY = 0;
-      });
-      
-      updateParallax();
-    })();
-    
-    // ========= INITIALIZATION =========
-    document.addEventListener('DOMContentLoaded', () => {
-      initParticles();
-      initTouchHandlers();
-      optimizeImage();
-      setTimeout(initParallax, 1000); // Запускаем параллакс после загрузки
-    });
-  </script>
+                // Пересоздаем частицы при изменении ориентации
+                const container = document.getElementById('particles');
+                if (container) {
+                    container.innerHTML = '';
+                    createParticles();
+                }
+            }, 300);
+        });
+    </script>
 </body>
 </html>
