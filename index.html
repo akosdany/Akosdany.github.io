@@ -2,31 +2,45 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>AK • Контакт</title>
-<link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔗</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔗</text></svg>">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#000000">
 
 <style>
-  /* ========= CSS RESET & VARIABLES ========= */
+  /* ========= iOS OPTIMIZED RESET ========= */
   :root {
-    --bg-primary: #000;
-    --bg-secondary: rgba(28, 28, 30, 0.8);
-    --bg-tertiary: rgba(44, 44, 46, 0.5);
-    --text-primary: #f5f5f7;
-    --text-secondary: #a1a1a6;
-    --accent-blue: #0a84ff;
-    --accent-teal: #64d2ff;
-    --accent-purple: #bf5af2;
-    --gradient: linear-gradient(135deg, var(--accent-blue), var(--accent-teal), var(--accent-purple));
+    --ios-bg: #000000;
+    --ios-card: rgba(28, 28, 30, 0.85);
+    --ios-card-light: rgba(242, 242, 247, 0.95);
+    --ios-elevated: rgba(44, 44, 46, 0.7);
+    --ios-elevated-light: rgba(255, 255, 255, 0.9);
+    --ios-text: #FFFFFF;
+    --ios-text-secondary: #8E8E93;
+    --ios-text-dark: #1D1D1F;
+    --ios-border: rgba(255, 255, 255, 0.1);
+    --ios-border-light: rgba(0, 0, 0, 0.1);
+    --ios-accent: #FFFFFF;
+    --ios-gray-1: #1C1C1E;
+    --ios-gray-2: #2C2C2E;
+    --ios-gray-3: #3A3A3C;
+    --ios-gray-4: #48484A;
+    --ios-gray-5: #8E8E93;
     
-    --font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-    --border-radius: 24px;
-    --transition-smooth: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    --transition-quick: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --font-sf: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-sf-mono: "SF Mono", "Menlo", "Monaco", "Cascadia Mono", monospace;
     
-    --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.08);
-    --shadow-medium: 0 8px 48px rgba(0, 0, 0, 0.15);
-    --shadow-floating: 0 25px 100px rgba(0, 0, 0, 0.25);
+    --ios-radius: 20px;
+    --ios-radius-large: 28px;
+    --ios-transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ios-timing: cubic-bezier(0.4, 0.0, 0.2, 1);
+    
+    --ios-shadow: 0 10px 60px rgba(0, 0, 0, 0.5);
+    --ios-shadow-light: 0 10px 60px rgba(0, 0, 0, 0.1);
+    --ios-shadow-card: 0 20px 80px rgba(0, 0, 0, 0.6);
+    --ios-inset: inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
   * {
@@ -34,36 +48,42 @@
     padding: 0;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    font-family: var(--font-system);
-    background: var(--bg-primary);
-    color: var(--text-primary);
+    font-family: var(--font-sf);
+    background: var(--ios-bg);
+    color: var(--ios-text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 1000px;
+    overscroll-behavior: none;
+    position: fixed;
   }
 
-  /* ========= DYNAMIC BACKGROUND ========= */
-  .background {
+  /* ========= iOS DYNAMIC BACKGROUND ========= */
+  .ios-background {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: -3;
-    background: radial-gradient(ellipse at 50% 0%, rgba(10, 132, 255, 0.03) 0%, transparent 70%),
-                radial-gradient(circle at 20% 80%, rgba(191, 90, 242, 0.02) 0%, transparent 40%),
-                radial-gradient(circle at 80% 20%, rgba(100, 210, 255, 0.02) 0%, transparent 40%),
-                var(--bg-primary);
+    background: 
+      radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 60%),
+      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.01) 0%, transparent 50%),
+      var(--ios-bg);
   }
 
-  .particles {
+  /* ========= iOS PARTICLE SYSTEM ========= */
+  .particles-container {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -73,408 +93,648 @@
 
   .particle {
     position: absolute;
-    background: var(--gradient);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
+    pointer-events: none;
     opacity: 0;
-    animation: floatParticle 20s infinite linear;
   }
 
-  @keyframes floatParticle {
-    0% { transform: translateY(100vh) scale(0); opacity: 0; }
-    10% { opacity: 0.4; }
-    90% { opacity: 0.3; }
-    100% { transform: translateY(-100px) scale(1); opacity: 0; }
+  .particle-line {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    height: 1px;
+    pointer-events: none;
+    opacity: 0;
   }
 
-  .noise {
+  /* ========= iOS NOISE TEXTURE ========= */
+  .ios-noise {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 0.015;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
   }
 
-  /* ========= MAIN CARD ========= */
-  .card {
+  /* ========= iOS GLASS CARD ========= */
+  .ios-card {
     position: relative;
-    width: 92%;
-    max-width: 420px;
-    backdrop-filter: blur(60px) saturate(200%);
-    -webkit-backdrop-filter: blur(60px) saturate(200%);
-    background: rgba(28, 28, 30, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--border-radius);
-    padding: 48px 36px;
-    box-shadow: var(--shadow-medium), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    transform-style: preserve-3d;
-    animation: cardAppear 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    width: 87%;
+    max-width: 400px;
+    backdrop-filter: saturate(180%) blur(40px);
+    -webkit-backdrop-filter: saturate(180%) blur(40px);
+    background: var(--ios-card);
+    border: 1px solid var(--ios-border);
+    border-radius: var(--ios-radius-large);
+    padding: 44px 32px 36px;
+    box-shadow: var(--ios-shadow-card), var(--ios-inset);
+    transform: translateY(0) scale(1);
+    transition: var(--ios-transition);
+    animation: iosCardAppear 1s var(--ios-timing) forwards;
     opacity: 0;
-    transform: translateY(30px) scale(0.98);
-    overflow: hidden;
+    transform: translateY(40px) scale(0.96);
   }
 
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--gradient);
-    opacity: 0;
-    z-index: -1;
-    transition: var(--transition-smooth);
+  @supports not (backdrop-filter: blur(40px)) {
+    .ios-card {
+      background: rgba(28, 28, 30, 0.95);
+    }
   }
 
-  .card:hover::before {
-    opacity: 0.03;
-  }
-
-  @keyframes cardAppear {
+  @keyframes iosCardAppear {
+    0% {
+      opacity: 0;
+      transform: translateY(40px) scale(0.96);
+    }
     100% {
       opacity: 1;
       transform: translateY(0) scale(1);
     }
   }
 
-  /* ========= AVATAR ========= */
-  .avatar-container {
+  /* ========= iOS AVATAR ========= */
+  .ios-avatar-container {
     position: relative;
-    width: 128px;
-    height: 128px;
-    margin: 0 auto 28px;
-    animation: avatarFloat 6s ease-in-out infinite;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 32px;
   }
 
-  @keyframes avatarFloat {
-    0%, 100% { transform: translateY(0) rotate(0); }
-    50% { transform: translateY(-8px) rotate(0.5deg); }
-  }
-
-  .avatar {
+  .ios-avatar {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid transparent;
-    background: linear-gradient(white, white) padding-box,
-                var(--gradient) border-box;
-    box-shadow: var(--shadow-soft);
-    transition: var(--transition-quick);
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: var(--ios-transition);
   }
 
-  .avatar:hover {
-    transform: scale(1.03);
-    box-shadow: 0 12px 40px rgba(10, 132, 255, 0.2);
+  .ios-avatar:active {
+    transform: scale(0.98);
   }
 
-  /* ========= TYPOGRAPHY ========= */
-  .title {
+  .ios-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ios-gray-2), var(--ios-gray-3));
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 48px;
+    color: rgba(255, 255, 255, 0.5);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* ========= iOS TYPOGRAPHY ========= */
+  .ios-title {
+    font-size: 44px;
     font-weight: 700;
     letter-spacing: -0.5px;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-bottom: 4px;
+    color: var(--ios-text);
+    margin-bottom: 6px;
     text-align: center;
+    font-family: var(--font-sf);
   }
 
-  .subtitle {
-    font-size: 20px;
+  .ios-subtitle {
+    font-size: 19px;
     font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: 36px;
+    color: var(--ios-text-secondary);
+    margin-bottom: 40px;
     text-align: center;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.2px;
     position: relative;
     display: inline-block;
   }
 
-  .subtitle::after {
+  .ios-subtitle::after {
     content: '';
     position: absolute;
-    bottom: -6px;
+    bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 30px;
+    width: 36px;
     height: 2px;
-    background: var(--gradient);
-    border-radius: 2px;
-    opacity: 0.6;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 1px;
   }
 
-  /* ========= LINK BUTTONS ========= */
-  .links {
+  /* ========= iOS ACTION BUTTONS ========= */
+  .ios-actions {
     display: flex;
     flex-direction: column;
     gap: 14px;
+    margin-bottom: 8px;
   }
 
-  .link {
+  .ios-action {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
+    justify-content: flex-start;
     text-decoration: none;
-    color: var(--text-primary);
-    background: var(--bg-tertiary);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 18px;
-    padding: 18px 24px;
-    font-size: 17px;
+    color: var(--ios-text);
+    background: var(--ios-elevated);
+    border: 1px solid var(--ios-border);
+    border-radius: 16px;
+    padding: 18px 22px;
+    font-size: 18px;
     font-weight: 500;
-    transition: var(--transition-quick);
+    transition: var(--ios-transition);
     position: relative;
     overflow: hidden;
-    transform-origin: center;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     opacity: 0;
-    animation: linkSlideUp 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    transform: translateY(20px);
+    animation: iosActionSlide 0.6s var(--ios-timing) forwards;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
   }
 
-  .link:nth-child(1) { animation-delay: 0.3s; }
-  .link:nth-child(2) { animation-delay: 0.5s; }
-  .link:nth-child(3) { animation-delay: 0.7s; }
-  .link:nth-child(4) { animation-delay: 0.9s; }
+  .ios-action:nth-child(1) { animation-delay: 0.2s; }
+  .ios-action:nth-child(2) { animation-delay: 0.3s; }
+  .ios-action:nth-child(3) { animation-delay: 0.4s; }
+  .ios-action:nth-child(4) { animation-delay: 0.5s; }
 
-  @keyframes linkSlideUp {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
+  @keyframes iosActionSlide {
     100% {
       opacity: 1;
       transform: translateY(0);
     }
   }
 
-  .link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-    transition: left 0.7s ease;
-  }
-
-  .link:hover {
-    background: rgba(44, 44, 46, 0.7);
-    border-color: rgba(255, 255, 255, 0.12);
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: var(--shadow-soft);
-  }
-
-  .link:hover::before {
-    left: 100%;
-  }
-
-  .link:active {
-    transform: translateY(0) scale(0.99);
+  .ios-action:active {
+    background: rgba(60, 60, 67, 0.7);
+    transform: scale(0.98);
     transition: all 0.1s;
   }
 
-  .link-icon {
-    font-size: 20px;
+  .ios-action-icon {
+    width: 28px;
+    height: 28px;
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
     opacity: 0.9;
-    transition: var(--transition-quick);
+    flex-shrink: 0;
   }
 
-  .link:hover .link-icon {
-    transform: scale(1.2);
-    opacity: 1;
+  .ios-action-text {
+    flex-grow: 1;
   }
 
-  /* ========= FOOTER ========= */
-  .footer {
-    margin-top: 36px;
+  .ios-action-arrow {
+    opacity: 0.5;
+    font-size: 18px;
+    transition: transform 0.3s;
+  }
+
+  .ios-action:active .ios-action-arrow {
+    transform: translateX(4px);
+  }
+
+  /* ========= iOS FOOTER ========= */
+  .ios-footer {
+    margin-top: 32px;
     text-align: center;
-    font-size: 14px;
-    color: var(--text-secondary);
-    opacity: 0.7;
-    letter-spacing: 0.3px;
-    animation: fadeIn 1s 1.2s forwards;
+    font-size: 15px;
+    color: var(--ios-text-secondary);
+    opacity: 0.6;
+    letter-spacing: 0.2px;
+    animation: iosFadeIn 1s 0.8s forwards;
     opacity: 0;
+    font-family: var(--font-sf-mono);
   }
 
-  @keyframes fadeIn {
-    to { opacity: 0.7; }
+  @keyframes iosFadeIn {
+    100% { opacity: 0.6; }
   }
 
-  /* ========= RESPONSIVE ========= */
-  @media (max-width: 480px) {
-    .card {
-      padding: 40px 28px;
-      border-radius: 22px;
-      width: 90%;
-    }
-    
-    .title {
-      font-size: 42px;
-    }
-    
-    .subtitle {
-      font-size: 18px;
-    }
-    
-    .avatar-container {
-      width: 112px;
-      height: 112px;
-    }
-    
-    .link {
-      padding: 16px 20px;
-      font-size: 16px;
-    }
-  }
-
+  /* ========= iOS LIGHT MODE ========= */
   @media (prefers-color-scheme: light) {
-    :root {
-      --bg-primary: #f5f5f7;
-      --bg-secondary: rgba(255, 255, 255, 0.8);
-      --bg-tertiary: rgba(242, 242, 247, 0.8);
-      --text-primary: #1d1d1f;
-      --text-secondary: #515154;
+    .ios-card {
+      background: var(--ios-card-light);
+      border: 1px solid var(--ios-border-light);
+      box-shadow: var(--ios-shadow-light), inset 0 1px 0 rgba(255, 255, 255, 0.8);
     }
     
-    .card {
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      box-shadow: var(--shadow-medium), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    .ios-action {
+      background: var(--ios-elevated-light);
+      border: 1px solid var(--ios-border-light);
+      color: var(--ios-text-dark);
     }
     
-    .link {
-      background: rgba(242, 242, 247, 0.8);
-      border: 1px solid rgba(0, 0, 0, 0.04);
+    .ios-action:active {
+      background: rgba(220, 220, 230, 0.8);
     }
     
-    .link:hover {
-      background: rgba(255, 255, 255, 0.9);
-      border-color: rgba(0, 0, 0, 0.08);
+    .ios-avatar {
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+    
+    .ios-avatar-placeholder {
+      background: linear-gradient(135deg, #E5E5EA, #F2F2F7);
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      color: rgba(0, 0, 0, 0.3);
+    }
+    
+    .ios-subtitle::after {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    
+    .particle {
+      background: rgba(0, 0, 0, 0.08);
+    }
+    
+    .particle-line {
+      background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+    }
+  }
+
+  /* ========= iOS DEVICE SPECIFIC ========= */
+  /* iPhone X/XS/11 Pro/12 mini/13 mini */
+  @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+    .ios-card {
+      padding: 48px 28px 40px;
+    }
+  }
+  
+  /* iPhone 12/13 Pro, 14 Pro */
+  @media only screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) {
+    .ios-card {
+      padding: 48px 30px 40px;
+    }
+  }
+  
+  /* iPhone 14 Pro Max, 15 Pro Max */
+  @media only screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) {
+    .ios-card {
+      padding: 52px 32px 44px;
+    }
+  }
+  
+  /* iPad */
+  @media only screen and (min-width: 768px) {
+    .ios-card {
+      max-width: 440px;
+      padding: 52px 40px 44px;
+    }
+    
+    .ios-avatar-container {
+      width: 140px;
+      height: 140px;
+    }
+    
+    .ios-title {
+      font-size: 48px;
+    }
+  }
+
+  /* ========= SAFARI SPECIFIC FIXES ========= */
+  @supports (-webkit-touch-callout: none) {
+    .ios-card {
+      backdrop-filter: saturate(1.8) blur(40px);
+      -webkit-backdrop-filter: saturate(1.8) blur(40px);
+    }
+    
+    body {
+      -webkit-overflow-scrolling: touch;
     }
   }
 </style>
 </head>
 
 <body>
-  <!-- Динамический фон -->
-  <div class="background"></div>
-  <div class="particles" id="particles"></div>
-  <div class="noise"></div>
+  <!-- iOS оптимизированный фон -->
+  <div class="ios-background"></div>
+  
+  <!-- Динамическая система частиц -->
+  <div class="particles-container" id="particles"></div>
+  
+  <!-- Текстура шума -->
+  <div class="ios-noise"></div>
 
-  <!-- Основная карточка -->
-  <div class="card">
-    <div class="avatar-container">
-      <img src="avatar.png" alt="Аватар AK" class="avatar" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNjQiIGN5PSI2NCIgcj0iNjIiIGZpbGw9InVybCgjZ3JhZGllbnQpIi8+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMTI4IiB5Mj0iMTI4IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agc3RvcC1jb2xvcj0iIzBhODRmZiIvPjxzdG9wIG9mZnNldD0iMC41IiBzdG9wLWNvbG9yPSIjNjRkMmZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYmY1YWYyIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PC9zdmc+'">
+  <!-- Основная карточка в стиле iOS -->
+  <div class="ios-card">
+    <!-- Аватар -->
+    <div class="ios-avatar-container">
+      <img src="avatar.png" alt="AK" class="ios-avatar" 
+           onerror="this.style.display='none'; document.querySelector('.ios-avatar-placeholder').style.display='flex';"
+           loading="lazy" decoding="async">
+      <div class="ios-avatar-placeholder" style="display: none;">AK</div>
     </div>
     
-    <h1 class="title">AK</h1>
-    <p class="subtitle">digital & physical worlds</p>
+    <!-- Заголовок -->
+    <h1 class="ios-title">AK</h1>
+    <p class="ios-subtitle">Digital / Real Life</p>
     
-    <div class="links">
-      <a href="https://t.me/ak_os" class="link" target="_blank" rel="noopener">
-        <span class="link-icon">✉️</span>
-        <span>Telegram</span>
+    <!-- Действия -->
+    <div class="ios-actions">
+      <a href="https://t.me/ak_os" class="ios-action" target="_blank" rel="noopener">
+        <span class="ios-action-icon">✉️</span>
+        <span class="ios-action-text">Telegram</span>
+        <span class="ios-action-arrow">→</span>
       </a>
-      <a href="mailto:ak.os@mail.ru" class="link">
-        <span class="link-icon">📮</span>
-        <span>Email</span>
+      
+      <a href="mailto:ak.os@mail.ru" class="ios-action">
+        <span class="ios-action-icon">📮</span>
+        <span class="ios-action-text">Email</span>
+        <span class="ios-action-arrow">→</span>
       </a>
-      <a href="https://instagram.com/ak_os" class="link" target="_blank" rel="noopener">
-        <span class="link-icon">📸</span>
-        <span>Instagram</span>
+      
+      <a href="https://instagram.com/ak_os" class="ios-action" target="_blank" rel="noopener">
+        <span class="ios-action-icon">📸</span>
+        <span class="ios-action-text">Instagram</span>
+        <span class="ios-action-arrow">→</span>
       </a>
-      <a href="contact.vcf" class="link" download="AK.vcf">
-        <span class="link-icon">⬇️</span>
-        <span>Сохранить контакт</span>
+      
+      <a href="contact.vcf" class="ios-action" download="AK.vcf">
+        <span class="ios-action-icon">⬇️</span>
+        <span class="ios-action-text">Сохранить контакт</span>
+        <span class="ios-action-arrow">→</span>
       </a>
     </div>
     
-    <div class="footer">
-      Last updated — February 2024
+    <!-- Футер -->
+    <div class="ios-footer">
+      <span id="current-date"></span>
     </div>
   </div>
 
   <script>
-    // Генерация частиц для фона
-    function createParticles() {
+    // ========= iOS ОПТИМИЗИРОВАННЫЙ КОД =========
+    
+    // Система динамических частиц
+    function createIOSParticles() {
       const container = document.getElementById('particles');
-      const particleCount = 15;
+      const isMobile = window.innerWidth < 768;
       
-      for (let i = 0; i < particleCount; i++) {
+      // Сферические частицы
+      for (let i = 0; i < (isMobile ? 15 : 25); i++) {
         const particle = document.createElement('div');
-        particle.classList.add('particle');
+        particle.className = 'particle';
         
-        const size = Math.random() * 60 + 20;
-        const startX = Math.random() * 100;
-        const duration = Math.random() * 20 + 15;
-        const delay = Math.random() * 15;
+        const size = Math.random() * 4 + 1;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const duration = Math.random() * 40 + 20;
+        const delay = Math.random() * 10;
         
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
-        particle.style.left = `${startX}%`;
-        particle.style.animationDuration = `${duration}s`;
-        particle.style.animationDelay = `${delay}s`;
-        particle.style.opacity = Math.random() * 0.4 + 0.1;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.opacity = Math.random() * 0.3 + 0.1;
+        
+        // Анимация движения
+        particle.animate([
+          { 
+            transform: 'translate(0, 0) scale(1)',
+            opacity: particle.style.opacity
+          },
+          { 
+            transform: `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(${Math.random() * 0.5 + 0.8})`,
+            opacity: Math.random() * 0.2
+          },
+          { 
+            transform: `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(${Math.random() * 0.5 + 0.8})`,
+            opacity: particle.style.opacity
+          }
+        ], {
+          duration: duration * 1000,
+          delay: delay * 1000,
+          iterations: Infinity,
+          direction: 'alternate',
+          easing: 'ease-in-out'
+        });
         
         container.appendChild(particle);
       }
+      
+      // Линии (только для десктопа)
+      if (!isMobile) {
+        for (let i = 0; i < 8; i++) {
+          const line = document.createElement('div');
+          line.className = 'particle-line';
+          
+          const width = Math.random() * 100 + 50;
+          const posX = Math.random() * 100;
+          const posY = Math.random() * 100;
+          const duration = Math.random() * 30 + 15;
+          const delay = Math.random() * 5;
+          const rotation = Math.random() * 360;
+          
+          line.style.width = `${width}px`;
+          line.style.left = `${posX}%`;
+          line.style.top = `${posY}%`;
+          line.style.opacity = Math.random() * 0.15 + 0.05;
+          line.style.transform = `rotate(${rotation}deg)`;
+          
+          // Анимация линий
+          line.animate([
+            { opacity: line.style.opacity },
+            { opacity: Math.random() * 0.1 },
+            { opacity: line.style.opacity }
+          ], {
+            duration: duration * 1000,
+            delay: delay * 1000,
+            iterations: Infinity,
+            easing: 'ease-in-out'
+          });
+          
+          container.appendChild(line);
+        }
+      }
     }
     
-    // Параллакс эффект для карточки
-    function initParallax() {
-      const card = document.querySelector('.card');
+    // Эффект при нажатии на кнопки (iOS-like)
+    function setupIOSActions() {
+      const actions = document.querySelectorAll('.ios-action');
       
-      document.addEventListener('mousemove', (e) => {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      actions.forEach(action => {
+        // Добавляем рипл эффект
+        action.addEventListener('touchstart', function(e) {
+          clearRipple(this);
+          
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = e.touches[0].clientX - rect.left - size/2;
+          const y = e.touches[0].clientY - rect.top - size/2;
+          
+          const ripple = document.createElement('span');
+          ripple.style.cssText = `
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            width: ${size}px;
+            height: ${size}px;
+            top: ${y}px;
+            left: ${x}px;
+            pointer-events: none;
+          `;
+          
+          const style = document.createElement('style');
+          style.textContent = `
+            @keyframes ripple {
+              to { transform: scale(4); opacity: 0; }
+            }
+          `;
+          
+          document.head.appendChild(style);
+          this.appendChild(ripple);
+          
+          setTimeout(() => {
+            if (ripple.parentNode === this) {
+              this.removeChild(ripple);
+            }
+          }, 600);
+        });
         
-        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) translateY(0) scale(1)`;
+        // Предотвращаем долгое нажатие
+        action.addEventListener('touchmove', (e) => {
+          e.preventDefault();
+        });
       });
       
-      card.addEventListener('mouseenter', () => {
-        card.style.transition = 'none';
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        card.style.transition = 'transform 0.5s ease';
-        card.style.transform = 'rotateY(0) rotateX(0) translateY(0) scale(1)';
-      });
+      function clearRipple(element) {
+        const ripples = element.querySelectorAll('span');
+        ripples.forEach(ripple => {
+          if (ripple.parentNode === element) {
+            element.removeChild(ripple);
+          }
+        });
+      }
     }
     
-    // Плавная загрузка изображения
-    function preloadImage() {
-      const img = new Image();
-      img.src = document.querySelector('.avatar').src;
-      img.onload = () => {
-        document.querySelector('.avatar').style.opacity = '1';
+    // Адаптация под разные устройства iOS
+    function detectIOSDevice() {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      
+      if (isIOS) {
+        // Добавляем класс для тонкой настройки
+        document.body.classList.add('ios-device');
+        
+        // Фикс для 120Hz ProMotion
+        if (CSS.supports('(display-mode: standalone)')) {
+          document.documentElement.style.setProperty('--ios-transition', 'all 0.35s cubic-bezier(0.4, 0.0, 0.2, 1)');
+        }
+      }
+      
+      // Определяем наличие "челки" (Dynamic Island)
+      const hasDynamicIsland = window.innerHeight >= 812 && 
+                               window.innerWidth <= 430 && 
+                               'ontouchstart' in window;
+      
+      if (hasDynamicIsland) {
+        document.documentElement.style.setProperty('--ios-radius-large', '32px');
+      }
+    }
+    
+    // Обновляем дату в футере
+    function updateDate() {
+      const now = new Date();
+      const options = { 
+        month: 'long', 
+        year: 'numeric',
+        localeMatcher: 'lookup'
       };
+      
+      try {
+        const formatter = new Intl.DateTimeFormat('ru-RU', options);
+        document.getElementById('current-date').textContent = 
+          `Обновлено — ${formatter.format(now)}`;
+      } catch (e) {
+        // Fallback
+        const months = [
+          'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+          'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+        ];
+        document.getElementById('current-date').textContent = 
+          `Обновлено — ${months[now.getMonth()]} ${now.getFullYear()}`;
+      }
+    }
+    
+    // Оптимизированная загрузка
+    function optimizedLoad() {
+      // Приоритетная загрузка аватара
+      const avatar = document.querySelector('.ios-avatar');
+      if (avatar && avatar.src) {
+        const img = new Image();
+        img.src = avatar.src;
+        img.onload = () => {
+          avatar.style.opacity = '1';
+          avatar.classList.add('loaded');
+        };
+        img.onerror = () => {
+          document.querySelector('.ios-avatar-placeholder').style.display = 'flex';
+        };
+      }
+      
+      // Задержка создания частиц для приоритета UI
+      requestAnimationFrame(() => {
+        setTimeout(createIOSParticles, 300);
+      });
     }
     
     // Инициализация
     document.addEventListener('DOMContentLoaded', () => {
-      createParticles();
-      initParallax();
-      preloadImage();
+      // Порядок инициализации важен для iOS
+      detectIOSDevice();
+      optimizedLoad();
+      setupIOSActions();
+      updateDate();
       
-      // Добавление класса для анимации после загрузки
-      setTimeout(() => {
-        document.body.classList.add('loaded');
-      }, 100);
+      // Фикс для Safari 100vh
+      function setVH() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }
+      
+      setVH();
+      window.addEventListener('resize', setVH);
+      window.addEventListener('orientationchange', setVH);
+      
+      // Предотвращаем масштабирование при фокусе
+      document.addEventListener('touchstart', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+          return;
+        }
+        e.preventDefault();
+      }, { passive: false });
     });
     
-    // Изменение темы согласно системным настройкам
-    function updateTheme() {
-      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      document.documentElement.style.setProperty('--bg-primary', isDark ? '#000' : '#f5f5f7');
-    }
+    // Обработка свайпа вниз для обновления (iOS-like)
+    let startY = 0;
+    document.addEventListener('touchstart', (e) => {
+      startY = e.touches[0].clientY;
+    }, { passive: true });
     
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme);
+    document.addEventListener('touchend', (e) => {
+      const endY = e.changedTouches[0].clientY;
+      const diff = startY - endY;
+      
+      // Свайп вниз больше 100px
+      if (diff < -100 && window.scrollY === 0) {
+        // Минимальная вибрация (если поддерживается)
+        if (navigator.vibrate) {
+          navigator.vibrate(10);
+        }
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
